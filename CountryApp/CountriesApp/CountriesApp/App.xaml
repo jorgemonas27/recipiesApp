@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CountriesApp.App"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+             xmlns:ffimageloadingsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+             xmlns:infra="clr-namespace:CountriesApp.Infraestructure">
+    <Application.Resources>
+        <ResourceDictionary>
+            <infra:InstaceLocator x:Key="Locator"></infra:InstaceLocator>
+            
+            <ffimageloadingsvg:SvgImageSourceConverter x:Key="SvgImageSourceConverter"/>
+
+            <DataTemplate x:Key="templateList">
+                <ViewCell>
+                    <Frame CornerRadius="20" HasShadow="True" Margin="5">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <ffimageloading:CachedImage 
+                                                Source="{Binding Flag, Converter={StaticResource SvgImageSourceConverter}}" Grid.Column="0">
+                            </ffimageloading:CachedImage>
+                            <StackLayout Grid.Column="1" VerticalOptions="Center">
+                                <Label Text="{Binding Name}"></Label>
+                                <Label Text="{Binding Capital}"></Label>
+                            </StackLayout>
+                        </Grid>
+                    </Frame>
+                </ViewCell>
+            </DataTemplate>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
