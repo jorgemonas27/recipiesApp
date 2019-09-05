@@ -1,4 +1,5 @@
-﻿using CountriesApp.Models;
+﻿using CountriesApp.Converter;
+using CountriesApp.Models;
 using CountriesApp.Services;
 using CountriesApp.Views;
 using GalaSoft.MvvmLight.Command;
@@ -32,13 +33,26 @@ namespace CountriesApp.ViewModels
             }
         }
 
+        public ICommand DetailsCommand
+        {
+            get
+            {
+                return new RelayCommand(Details);
+            }
+        }
+
+        private async void Details()
+        {
+            await App.Current.MainPage.Navigation.PushAsync(new CountryDetailPage());
+        }
+
         #endregion
 
 
         #region Props
-        private ObservableCollection<Country> asia;
+        private ObservableCollection<CountryItemViewModel> asia;
 
-        public ObservableCollection<Country> Asia
+        public ObservableCollection<CountryItemViewModel> Asia
         {
             get { return asia; }
             set
@@ -82,8 +96,8 @@ namespace CountriesApp.ViewModels
         #region Ctor
         public AsiaViewModel()
         {
-           
             searchCountry = new SearchCountry();
+            loadCountry = new LoadCountry();
             GetAsiaCountries();
         }
         #endregion
@@ -92,15 +106,15 @@ namespace CountriesApp.ViewModels
 
         private async void GetAsiaCountries()
         {
-            loadCountry = new LoadCountry();
             this.asiaList = await loadCountry.LoadCountries("https://restcountries.eu/rest/v2/region/asia");
             var sortedList = this.asiaList.OrderBy(country => country.Name).ToList();
-            Asia = new ObservableCollection<Country>(sortedList);
+            Asia = new ObservableCollection<CountryItemViewModel>(ViewModelParser.ToCountryItemViewModel(sortedList));
         }
 
         private void SearchAsia()
         {
-            Asia = searchCountry.SearchCountries(KeySearch, asiaList, Asia);
+            var countries = ViewModelParser.ToCountryItemViewModel(asiaList);
+            Asia = searchCountry.SearchCountries(KeySearch, countries, Asia);
         }
 
         #endregion

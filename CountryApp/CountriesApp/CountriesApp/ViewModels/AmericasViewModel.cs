@@ -1,4 +1,5 @@
-﻿using CountriesApp.Models;
+﻿using CountriesApp.Converter;
+using CountriesApp.Models;
 using CountriesApp.Services;
 using CountriesApp.Views;
 using GalaSoft.MvvmLight.Command;
@@ -32,14 +33,26 @@ namespace CountriesApp.ViewModels
             }
         }
 
+        public ICommand DetailsCommand
+        {
+            get
+            {
+                return new RelayCommand(Details);
+            }
+        }
+
+        private async void Details()
+        {
+            await App.Current.MainPage.Navigation.PushAsync(new CountryDetailPage());
+        }
 
         #endregion
 
 
         #region Props
-        private ObservableCollection<Country> americas;
+        private ObservableCollection<CountryItemViewModel> americas;
 
-        public ObservableCollection<Country> Americas
+        public ObservableCollection<CountryItemViewModel> Americas
         {
             get { return americas; }
             set
@@ -84,6 +97,7 @@ namespace CountriesApp.ViewModels
         public AmericasViewModel()
         {
             searchCountry = new SearchCountry();
+            loadCountry = new LoadCountry();
             GetAmericasCountries();
         }
         #endregion
@@ -92,17 +106,17 @@ namespace CountriesApp.ViewModels
 
         private async void GetAmericasCountries()
         {
-            loadCountry = new LoadCountry();
             this.americasList = await loadCountry.LoadCountries("https://restcountries.eu/rest/v2/region/americas");
             var sortedList = this.americasList.OrderBy(country => country.Name).ToList();
-            Americas = new ObservableCollection<Country>(sortedList);    
+            Americas = new ObservableCollection<CountryItemViewModel>(ViewModelParser.ToCountryItemViewModel(sortedList));    
         }
 
         private void SearchAmericas()
         {
-            Americas = searchCountry.SearchCountries(KeySearch, americasList, Americas);
+            var countries = ViewModelParser.ToCountryItemViewModel(americasList);
+            Americas = searchCountry.SearchCountries(KeySearch, countries, Americas);
         }
-        
+
         #endregion
     }
 }

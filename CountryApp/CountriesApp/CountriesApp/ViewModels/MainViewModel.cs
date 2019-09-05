@@ -11,6 +11,7 @@ namespace CountriesApp.ViewModels
         public LoginViewModel LoginView { get; set; }
         public CountryViewModel CountryView { get; set; }
         public static MainViewModel Main { get; set; }
+        public CountryDetailViewModel CountryDetailView { get; set; }
 
         #endregion
 
@@ -19,6 +20,7 @@ namespace CountriesApp.ViewModels
         {
             LoginView = new LoginViewModel();
             CountryView = new CountryViewModel();
+            CountryDetailView = new CountryDetailViewModel();
         }
         #endregion
 

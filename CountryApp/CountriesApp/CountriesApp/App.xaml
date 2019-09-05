@@ -15,6 +15,9 @@
             <DataTemplate x:Key="templateList">
                 <ViewCell>
                     <Frame CornerRadius="20" HasShadow="True" Margin="5">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding DetailsCommand}"></TapGestureRecognizer>
+                        </Frame.GestureRecognizers>
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>
