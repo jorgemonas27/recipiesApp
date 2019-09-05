@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CountriesApp.Views.LoginPage"
+             BindingContext="{Binding Main, Source={StaticResource Locator}}">
+    <ContentPage.Content>
+        <StackLayout Spacing="10" VerticalOptions="Center" HorizontalOptions="Center" BindingContext="{Binding LoginView}">
+            <Image Source="mapsLogo.png" WidthRequest="200" HeightRequest="200" Margin="10"></Image>
+            <Label HorizontalOptions="Start" TextColor="Black" FontAttributes="Bold" Text="Email"></Label>
+            <Entry Placeholder="Enter your email" Text="{Binding Email}" Keyboard="Email"></Entry>
+            <Label HorizontalOptions="Start" Text="Password" TextColor="Black" FontAttributes="Bold"></Label>
+            <Entry Placeholder="Enter your password" Text="{Binding Password}" IsPassword="True"></Entry>
+            <Button Command="{Binding LoginCommand}" 
+                    IsEnabled="{Binding IsEnabled}" 
+                    Margin="0,20,0,0" 
+                    VerticalOptions="EndAndExpand" 
+                    BackgroundColor="#084c9e" 
+                    TextColor="White" 
+                    CornerRadius="20" 
+                    Text="LOG IN"></Button>
+            <ActivityIndicator IsRunning="{Binding IsRunning}" IsVisible="{Binding IsRunning}"></ActivityIndicator>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CountriesApp.Views.AsiaPage"
+             Title="ASI"
+             Icon="asia.png"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+             xmlns:ffimageloadingsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+             BindingContext="{Binding Main, Source={StaticResource Locator}}">
+
+    <ContentPage.Content>
+        <StackLayout BindingContext="{Binding CountryView}">
+            <StackLayout BindingContext="{Binding AsiaView}">
+                <SearchBar 
+                SearchCommand="{Binding SearchCommand}" 
+                Text="{Binding KeySearch, Mode=TwoWay}" 
+                Margin="0,20,0,0"
+                Placeholder="Search for a country!"/>
+                <ActivityIndicator IsRunning="{Binding IsRunning}" IsVisible="{Binding IsRunning}"></ActivityIndicator>
+                <StackLayout HorizontalOptions="Center" Padding="10" Spacing="10">
+                    <ListView HasUnevenRows="True" ItemTemplate="{StaticResource templateList}" ItemsSource="{Binding Asia}"/>
+                </StackLayout>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

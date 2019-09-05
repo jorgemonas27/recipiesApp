@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CountriesApp.Views.CountryDetailPage"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+             xmlns:ffimageloadingsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <ffimageloadingsvg:SvgImageSourceConverter x:Key="SvgImageSourceConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+    <ContentPage.Content>
+        <StackLayout>
+            <ffimageloading:CachedImage 
+                Source="{Binding Flag, Converter={StaticResource SvgImageSourceConverter}}">
+            </ffimageloading:CachedImage>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <StackLayout Grid.Column="0" HorizontalOptions="Start" Margin="20">
+                    <Label Text="Name:"></Label>
+                    <Label Text="Alpha Code:"></Label>
+                    <Label Text="Capital:"></Label>
+                    <Label Text="Region:"></Label>
+                    <Label Text="Population:"></Label>
+                    <Label Text="Demonym:"></Label>
+                    <Label Text="Numeric Code:"></Label>
+                    <Label Text="Currency:"></Label>
+                    <Label Text="Main Language:"></Label>
+                    <Label Text="Secondary Language:"></Label>
+                </StackLayout>
+                <StackLayout Grid.Column="1">
+                    <Label Text="{Binding Name}"></Label>
+                    <Label Text="{Binding Alpha3Code}"></Label>
+                    <Label Text="{Binding Capital}"></Label>
+                    <Label Text="{Binding Region}"></Label>
+                    <Label Text="{Binding Population}"></Label>
+                    <Label Text="{Binding Demonym}"></Label>
+                    <Label Text="{Binding NumericCode}"></Label>
+                    <Label Text="{Binding Currencies.Name}"></Label>
+                </StackLayout>
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
