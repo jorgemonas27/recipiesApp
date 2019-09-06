@@ -1,4 +1,5 @@
-﻿using CountriesApp.Models;
+﻿using CountriesApp.Converter;
+using CountriesApp.Models;
 using CountriesApp.Services;
 using CountriesApp.Views;
 using GalaSoft.MvvmLight.Command;
@@ -16,9 +17,9 @@ namespace CountriesApp.ViewModels
     {
         #region props
 
-        private ObservableCollection<Country> africa;
+        private ObservableCollection<CountryItemViewModel> africa;
 
-        public ObservableCollection<Country> Africa
+        public ObservableCollection<CountryItemViewModel> Africa
         {
             get { return africa; }
             set
@@ -73,24 +74,6 @@ namespace CountriesApp.ViewModels
 
         #region Commands
 
-        public Command<Country> DeleteCommand
-        {
-            get
-            {
-                return new Command<Country>(DeleteAsync);
-            }
-        }
-
-        private void DeleteAsync(Country obj)
-        {
-            if (Africa.Remove(Africa.Where(country => country.Name == obj.Name).Single()))
-            {
-                Africa = new ObservableCollection<Country>(Africa);
-                Number = Africa.Count;
-            }
-        }
-
-      
         public ICommand RefreshCommand
         {
             get
@@ -106,13 +89,15 @@ namespace CountriesApp.ViewModels
                 return new RelayCommand(SearchAfrica);
             }
         }
-        
+
         #endregion
 
         #region Ctor
 
         public AfricaViewModel()
         {
+            loadCountry = new LoadCountry();
+            searchCountry = new SearchCountry();
             GetAfricaCountries();
         }
 
@@ -121,17 +106,19 @@ namespace CountriesApp.ViewModels
         #region Methods
         private async void GetAfricaCountries()
         {
-            loadCountry = new LoadCountry();
+            IsRunning = true;
             this.africaCountries = await loadCountry.LoadCountries("https://restcountries.eu/rest/v2/region/africa");
             var sortedList = africaCountries.OrderBy(country => country.Name).ToList();
-            Africa = new ObservableCollection<Country>(sortedList);
+            Africa = new ObservableCollection<CountryItemViewModel>(ViewModelParser.ToCountryItemViewModel(sortedList));
+            IsRunning = false;
         }
 
         private void SearchAfrica()
         {
-            searchCountry = new SearchCountry();
-            Africa = searchCountry.SearchCountries(KeySearch, africaCountries, Africa);
+            var countries = ViewModelParser.ToCountryItemViewModel(africaCountries);
+            Africa = searchCountry.SearchCountries(KeySearch, countries, Africa);
         }
+
         #endregion
     }
 }

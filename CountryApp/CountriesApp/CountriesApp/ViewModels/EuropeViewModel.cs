@@ -1,4 +1,5 @@
-﻿using CountriesApp.Models;
+﻿using CountriesApp.Converter;
+using CountriesApp.Models;
 using CountriesApp.Services;
 using CountriesApp.Views;
 using GalaSoft.MvvmLight.Command;
@@ -32,13 +33,26 @@ namespace CountriesApp.ViewModels
             }
         }
 
+        public ICommand DetailsCommand
+        {
+            get
+            {
+                return new RelayCommand(Details);
+            }
+        }
+
+        private async void Details()
+        {
+            await App.Current.MainPage.Navigation.PushAsync(new CountryDetailPage());
+        }
+
         #endregion
 
 
         #region Props
-        private ObservableCollection<Country> europe;
+        private ObservableCollection<CountryItemViewModel> europe;
 
-        public ObservableCollection<Country> Europe
+        public ObservableCollection<CountryItemViewModel> Europe
         {
             get { return europe; }
             set
@@ -82,6 +96,7 @@ namespace CountriesApp.ViewModels
         #region Ctor
         public EuropeViewModel()
         {
+            loadCountry = new LoadCountry();
             searchCountry = new SearchCountry();
             GetEuropeCountries();
         }
@@ -91,17 +106,18 @@ namespace CountriesApp.ViewModels
 
         private async void GetEuropeCountries()
         {
-            loadCountry = new LoadCountry();
+            IsRunning = true;
             this.europeList = await loadCountry.LoadCountries("https://restcountries.eu/rest/v2/region/europe");
             var sortedList = this.europeList.OrderBy(country => country.Name).ToList();
-            Europe = new ObservableCollection<Country>(sortedList);
+            Europe = new ObservableCollection<CountryItemViewModel>(ViewModelParser.ToCountryItemViewModel(sortedList));
+            IsRunning = false;
         }
 
         private void SearchEurope()
         {
-            Europe = searchCountry.SearchCountries(KeySearch, europeList, Europe);
+            var countries = ViewModelParser.ToCountryItemViewModel(europeList);
+            Europe = searchCountry.SearchCountries(KeySearch, countries, Europe);
         }
-
         #endregion
     }
 }

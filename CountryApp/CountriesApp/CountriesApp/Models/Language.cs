@@ -1,10 +1,7 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CountriesApp.Models
+﻿namespace CountriesApp.Models
 {
+    using Newtonsoft.Json;
+
     public class Language
     {
         [JsonProperty("iso639_1")]

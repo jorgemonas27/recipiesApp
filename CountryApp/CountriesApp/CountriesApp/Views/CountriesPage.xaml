@@ -7,8 +7,10 @@
              BarTextColor="White"
              Title="Countries"
              Icon="ic_launcher.png"
-             BindingContext="{Binding Main, Source={StaticResource Locator}}">
-    
+             BindingContext="{Binding Main, Source={StaticResource Locator}}"
+             xmlns:viewModel="clr-namespace:CountriesApp.ViewModels">
+
+ 
     <TabbedPage.ToolbarItems >
         <ToolbarItem Name="iconexample" Icon="ic_shortcut_settings.png" Priority="0" Order="Primary"></ToolbarItem>
     </TabbedPage.ToolbarItems>
@@ -19,6 +21,6 @@
         <local:AsiaPage/>
         <local:EuropePage/>
         <local:OceaniaPage/>
-    </TabbedPage.Children>
+    </TabbedPage.Children >
 
 </TabbedPage>

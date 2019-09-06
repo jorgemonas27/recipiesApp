@@ -7,6 +7,6 @@ namespace CountriesApp.Services
 {
     public interface ILogin
     {
-        Task<bool> LoginUser(string email, string password, bool isRunning, bool isEnabled);
+        Task<bool> LoginUser(string email, string password);
     }
 }

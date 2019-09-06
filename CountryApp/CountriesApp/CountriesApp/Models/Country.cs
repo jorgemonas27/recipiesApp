@@ -1,10 +1,8 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CountriesApp.Models
+﻿namespace CountriesApp.Models
 {
+    using System.Collections.Generic;
+    using Newtonsoft.Json;
+
     public class Country
     {
         [JsonProperty(PropertyName = "name")]

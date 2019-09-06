@@ -1,4 +1,5 @@
-﻿using CountriesApp.Models;
+﻿using CountriesApp.Converter;
+using CountriesApp.Models;
 using CountriesApp.Services;
 using CountriesApp.Views;
 using GalaSoft.MvvmLight.Command;
@@ -32,13 +33,26 @@ namespace CountriesApp.ViewModels
             }
         }
 
+        public ICommand DetailsCommand
+        {
+            get
+            {
+                return new RelayCommand(Details);
+            }
+        }
+
+        private async void Details()
+        {
+            await App.Current.MainPage.Navigation.PushAsync(new CountryDetailPage());
+        }
+
         #endregion
 
 
         #region Props
-        private ObservableCollection<Country> oceania;
+        private ObservableCollection<CountryItemViewModel> oceania;
 
-        public ObservableCollection<Country> Oceania
+        public ObservableCollection<CountryItemViewModel> Oceania
         {
             get { return oceania; }
             set
@@ -82,6 +96,7 @@ namespace CountriesApp.ViewModels
         #region Ctor
         public OceaniaViewModel()
         {
+            loadCountry = new LoadCountry();
             searchCountry = new SearchCountry();
             GetOceaniaCountries();
         }
@@ -91,15 +106,16 @@ namespace CountriesApp.ViewModels
 
         private async void GetOceaniaCountries()
         {
-            loadCountry = new LoadCountry();
+            IsRunning = true;
             this.oceaniaList = await loadCountry.LoadCountries("https://restcountries.eu/rest/v2/region/oceania");
             var sortedList = this.oceaniaList.OrderBy(country => country.Name).ToList();
-            Oceania = new ObservableCollection<Country>(sortedList);
+            Oceania = new ObservableCollection<CountryItemViewModel>(ViewModelParser.ToCountryItemViewModel(sortedList));
+            IsRunning = false;
         }
 
         private void SearchOceania()
         {
-            Oceania = searchCountry.SearchCountries(KeySearch, oceaniaList, Oceania);
+            Oceania = searchCountry.SearchCountries(KeySearch, ViewModelParser.ToCountryItemViewModel(this.oceaniaList), Oceania);
         }
 
         #endregion

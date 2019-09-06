@@ -4,47 +4,86 @@
              x:Class="CountriesApp.Views.CountryDetailPage"
              xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
-             xmlns:ffimageloadingsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms">
+             xmlns:ffimageloadingsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
+             BackgroundColor="#f2f2f2"
+             Title="{Binding Country.Name}"
+             BindingContext="{Binding Main, Source={StaticResource Locator}}">
 
     <ContentPage.Resources>
         <ResourceDictionary>
             <ffimageloadingsvg:SvgImageSourceConverter x:Key="SvgImageSourceConverter"/>
         </ResourceDictionary>
     </ContentPage.Resources>
-    
+
     <ContentPage.Content>
-        <StackLayout>
-            <ffimageloading:CachedImage 
-                Source="{Binding Flag, Converter={StaticResource SvgImageSourceConverter}}">
-            </ffimageloading:CachedImage>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"></ColumnDefinition>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <StackLayout Grid.Column="0" HorizontalOptions="Start" Margin="20">
-                    <Label Text="Name:"></Label>
-                    <Label Text="Alpha Code:"></Label>
-                    <Label Text="Capital:"></Label>
-                    <Label Text="Region:"></Label>
-                    <Label Text="Population:"></Label>
-                    <Label Text="Demonym:"></Label>
-                    <Label Text="Numeric Code:"></Label>
-                    <Label Text="Currency:"></Label>
-                    <Label Text="Main Language:"></Label>
-                    <Label Text="Secondary Language:"></Label>
+        <ScrollView BindingContext="{Binding CountryDetailView}">
+            <StackLayout Padding="10" Spacing="10">
+                <Label Text="{Binding Country.Name}" 
+                       HorizontalOptions="Center" 
+                       VerticalOptions="CenterAndExpand" 
+                       FontSize="Large"  
+                       FontAttributes="Bold"
+                       TextColor="Black"></Label>
+                <ffimageloading:CachedImage
+                       HeightRequest="200"
+                       WidthRequest="400"
+                       Source="{Binding Country.Flag, Converter={StaticResource SvgImageSourceConverter}}">
+                    <ffimageloading:CachedImage.Transformations>
+                        <fftransformations:RoundedTransformation Radius="250"/>
+                    </ffimageloading:CachedImage.Transformations>
+                </ffimageloading:CachedImage>
+                <Label Text="General Info" HorizontalOptions="Center" FontAttributes="Bold" FontSize="Medium"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <StackLayout Grid.Column="0" HorizontalOptions="Center" Margin="20">
+                        <Label Text="Alpha Code:" FontAttributes="Bold"></Label>
+                        <Label Text="Capital:" FontAttributes="Bold"></Label>
+                        <Label Text="Region:" FontAttributes="Bold"></Label>
+                        <Label Text="Subregion:" FontAttributes="Bold"></Label>
+                        <Label Text="Population:" FontAttributes="Bold"></Label>
+                        <Label Text="Demonym:" FontAttributes="Bold"></Label>
+                        <Label Text="Numeric Code:" FontAttributes="Bold"></Label>
+                    </StackLayout>
+                    <StackLayout Grid.Column="1" HorizontalOptions="Center" Margin="20">
+                        <Label Text="{Binding Country.Alpha3Code}"></Label>
+                        <Label Text="{Binding Country.Capital}"></Label>
+                        <Label Text="{Binding Country.Region}"></Label>
+                        <Label Text="{Binding Country.Subregion}"></Label>
+                        <Label Text="{Binding Country.Population}"></Label>
+                        <Label Text="{Binding Country.Demonym}"></Label>
+                        <Label Text="{Binding Country.NumericCode}"></Label>
+                    </StackLayout>
+                </Grid>
+                <StackLayout VerticalOptions="FillAndExpand">
+                <Label Text=" Currency Info" FontAttributes="Bold" FontSize="Medium" HorizontalOptions="Center"/>
+                    <ListView ItemsSource="{Binding Currencies}" HasUnevenRows="True" HorizontalOptions="Center">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Label HorizontalOptions="Center" Text="{Binding Name}"></Label>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
                 </StackLayout>
-                <StackLayout Grid.Column="1">
-                    <Label Text="{Binding Name}"></Label>
-                    <Label Text="{Binding Alpha3Code}"></Label>
-                    <Label Text="{Binding Capital}"></Label>
-                    <Label Text="{Binding Region}"></Label>
-                    <Label Text="{Binding Population}"></Label>
-                    <Label Text="{Binding Demonym}"></Label>
-                    <Label Text="{Binding NumericCode}"></Label>
-                    <Label Text="{Binding Currencies.Name}"></Label>
+                <StackLayout VerticalOptions="FillAndExpand">
+                <Label Text="Languages Info" FontAttributes="Bold" FontSize="Medium" HorizontalOptions="Center"/>
+                <ListView ItemsSource="{Binding Languages}" HasUnevenRows="True" HorizontalOptions="Center">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Label HorizontalOptions="Center" Text="{Binding Name}"></Label>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                    
                 </StackLayout>
-            </Grid>
-        </StackLayout>
+            </StackLayout>
+
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

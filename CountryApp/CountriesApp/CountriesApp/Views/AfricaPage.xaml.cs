@@ -11,20 +11,13 @@ using Xamarin.Forms.Xaml;
 
 namespace CountriesApp.Views
 {
-	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class AfricaPage : ContentPage
-	{
-		public AfricaPage ()
-		{
-			InitializeComponent ();
-		}
-
-        public void Remove_Clicked(object sender, EventArgs e)
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class AfricaPage : ContentPage
+    {
+        public AfricaPage()
         {
-            var button = sender as Button;
-            var country = button.BindingContext as Country;
-            var vm = new AfricaViewModel();
-            vm.DeleteCommand.Execute(country);
+            InitializeComponent();
         }
     }
+
 }

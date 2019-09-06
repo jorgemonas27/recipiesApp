@@ -10,7 +10,7 @@
              BindingContext="{Binding Main, Source={StaticResource Locator}}">
 
     <ContentPage.Content>
-        <StackLayout BindingContext="{Binding CountryView}">
+        <!--<StackLayout BindingContext="{Binding CountryView}">-->
             <StackLayout BindingContext="{Binding AmericasView}">
                 <SearchBar 
                     SearchCommand="{Binding SearchCommand}" 
@@ -22,6 +22,6 @@
                     <ListView HasUnevenRows="True" ItemTemplate="{StaticResource templateList}" ItemsSource="{Binding Americas}"/>
                 </StackLayout>
             </StackLayout>
-        </StackLayout>
+        <!--</StackLayout>-->
     </ContentPage.Content>
 </ContentPage>
