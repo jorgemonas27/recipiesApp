@@ -106,9 +106,11 @@ namespace CountriesApp.ViewModels
 
         private async void GetAsiaCountries()
         {
+            IsRunning = true;
             this.asiaList = await loadCountry.LoadCountries("https://restcountries.eu/rest/v2/region/asia");
             var sortedList = this.asiaList.OrderBy(country => country.Name).ToList();
             Asia = new ObservableCollection<CountryItemViewModel>(ViewModelParser.ToCountryItemViewModel(sortedList));
+            IsRunning = false;
         }
 
         private void SearchAsia()

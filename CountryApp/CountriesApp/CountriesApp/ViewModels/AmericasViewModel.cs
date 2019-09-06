@@ -32,20 +32,6 @@ namespace CountriesApp.ViewModels
                 return new RelayCommand(SearchAmericas);
             }
         }
-
-        public ICommand DetailsCommand
-        {
-            get
-            {
-                return new RelayCommand(Details);
-            }
-        }
-
-        private async void Details()
-        {
-            await App.Current.MainPage.Navigation.PushAsync(new CountryDetailPage());
-        }
-
         #endregion
 
 
@@ -106,9 +92,11 @@ namespace CountriesApp.ViewModels
 
         private async void GetAmericasCountries()
         {
+            IsRunning = true;
             this.americasList = await loadCountry.LoadCountries("https://restcountries.eu/rest/v2/region/americas");
             var sortedList = this.americasList.OrderBy(country => country.Name).ToList();
-            Americas = new ObservableCollection<CountryItemViewModel>(ViewModelParser.ToCountryItemViewModel(sortedList));    
+            Americas = new ObservableCollection<CountryItemViewModel>(ViewModelParser.ToCountryItemViewModel(sortedList));
+            IsRunning = false;
         }
 
         private void SearchAmericas()

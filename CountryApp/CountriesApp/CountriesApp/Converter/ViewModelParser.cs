@@ -1,12 +1,10 @@
-﻿using CountriesApp.Models;
-using CountriesApp.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace CountriesApp.Converter
+﻿namespace CountriesApp.Converter
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using CountriesApp.Models;
+    using CountriesApp.ViewModels;
+
     public static class ViewModelParser
     {
         public static List<CountryItemViewModel> ToCountryItemViewModel(List<Country> sortedList)

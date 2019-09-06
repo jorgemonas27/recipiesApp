@@ -1,10 +1,6 @@
-﻿using CountriesApp.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CountriesApp.Infraestructure
+﻿namespace CountriesApp.Infraestructure
 {
+    using CountriesApp.ViewModels;
     public class InstaceLocator
     {
         public MainViewModel Main { get; set; }

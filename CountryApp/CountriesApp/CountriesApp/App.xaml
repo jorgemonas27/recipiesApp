@@ -16,7 +16,7 @@
                 <ViewCell>
                     <Frame CornerRadius="20" HasShadow="True" Margin="5">
                         <Frame.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding DetailsCommand}"></TapGestureRecognizer>
+                            <TapGestureRecognizer Command="{Binding DetailsCommand, Mode=TwoWay}"></TapGestureRecognizer>
                         </Frame.GestureRecognizers>
                         <Grid>
                             <Grid.ColumnDefinitions>
@@ -24,7 +24,8 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <ffimageloading:CachedImage 
-                                                Source="{Binding Flag, Converter={StaticResource SvgImageSourceConverter}}" Grid.Column="0">
+                                                Source="{Binding Flag, Converter={StaticResource SvgImageSourceConverter}}" Grid.Column="0"
+                                                HeightRequest="50" WidthRequest="100">
                             </ffimageloading:CachedImage>
                             <StackLayout Grid.Column="1" VerticalOptions="Center">
                                 <Label Text="{Binding Name}"></Label>

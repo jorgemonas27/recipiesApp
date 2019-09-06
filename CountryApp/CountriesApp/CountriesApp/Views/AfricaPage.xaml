@@ -10,7 +10,7 @@
              BindingContext="{Binding Main, Source={StaticResource Locator}}">
 
     <ContentPage.Content>
-        <StackLayout BindingContext="{Binding CountryView}">
+        <!--<StackLayout BindingContext="{Binding CountryView}">-->
             <StackLayout BindingContext="{Binding AfricaView}">
                 <SearchBar 
                 SearchCommand="{Binding SearchCommand}" 
@@ -29,6 +29,6 @@
                           RefreshCommand="{Binding RefreshCommand}"/>
                 </StackLayout>
             </StackLayout>
-        </StackLayout>
+        <!--</StackLayout>-->
     </ContentPage.Content>
 </ContentPage>

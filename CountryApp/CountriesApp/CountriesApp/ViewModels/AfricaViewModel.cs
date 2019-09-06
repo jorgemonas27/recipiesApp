@@ -90,18 +90,6 @@ namespace CountriesApp.ViewModels
             }
         }
 
-        public ICommand DetailsCommand
-        {
-            get
-            {
-                return new RelayCommand(Details);
-            }
-        }
-
-        private async void Details()
-        {
-            await App.Current.MainPage.Navigation.PushAsync(new CountryDetailPage());
-        }
         #endregion
 
         #region Ctor
@@ -118,9 +106,11 @@ namespace CountriesApp.ViewModels
         #region Methods
         private async void GetAfricaCountries()
         {
+            IsRunning = true;
             this.africaCountries = await loadCountry.LoadCountries("https://restcountries.eu/rest/v2/region/africa");
             var sortedList = africaCountries.OrderBy(country => country.Name).ToList();
             Africa = new ObservableCollection<CountryItemViewModel>(ViewModelParser.ToCountryItemViewModel(sortedList));
+            IsRunning = false;
         }
 
         private void SearchAfrica()

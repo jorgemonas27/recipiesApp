@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CountriesApp.Models
+﻿namespace CountriesApp.Models
 {
     public class Response
     {

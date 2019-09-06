@@ -106,9 +106,11 @@ namespace CountriesApp.ViewModels
 
         private async void GetEuropeCountries()
         {
+            IsRunning = true;
             this.europeList = await loadCountry.LoadCountries("https://restcountries.eu/rest/v2/region/europe");
             var sortedList = this.europeList.OrderBy(country => country.Name).ToList();
             Europe = new ObservableCollection<CountryItemViewModel>(ViewModelParser.ToCountryItemViewModel(sortedList));
+            IsRunning = false;
         }
 
         private void SearchEurope()

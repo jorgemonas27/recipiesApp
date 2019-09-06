@@ -86,12 +86,18 @@ namespace CountriesApp.ViewModels
         #region Methods
         private async void Login()
         {
-            if (await login.LoginUser(Email, Password, IsRunning, IsEnabled))
+            IsEnabled = false;
+            IsRunning = true;
+            if (await login.LoginUser(Email, Password))
             {
+                //MainViewModel.GetInstace().AfricaView = new AfricaViewModel();
+                //MainViewModel.GetInstace().AsiaView = new AsiaViewModel();
+                //MainViewModel.GetInstace().AmericasView = new AmericasViewModel();
+                //MainViewModel.GetInstace().EuropeView = new EuropeViewModel();
+                //MainViewModel.GetInstace().OceaniaView = new OceaniaViewModel();
+
                 await App.Current.MainPage.Navigation.PushAsync(new CountriesPage());
             }
-            //Email = string.Empty;
-            //Password = string.Empty;
         }
         #endregion
     }
