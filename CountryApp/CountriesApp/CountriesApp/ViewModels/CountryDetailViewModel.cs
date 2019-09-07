@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Text;
 
 namespace CountriesApp.ViewModels
@@ -23,8 +24,10 @@ namespace CountriesApp.ViewModels
             }
         }
 
-        public List<Currency> Currencies { get; set; }
-        public List<Language> Languages { get; set; }
+        public Currency Currency { get; set; }
+        public Language Languages { get; set; }
+
+        public List<List<object>> Info;
 
         #endregion
 
@@ -33,12 +36,10 @@ namespace CountriesApp.ViewModels
         public CountryDetailViewModel(Country selectedCountry)
         {
             this.Country = selectedCountry;
-            this.Currencies = this.Country.Currencies;
-            this.Languages = this.Country.Languages;
+            this.Currency = this.Country.Currencies.FirstOrDefault();
+            this.Languages = this.Country.Languages.FirstOrDefault();
         }
 
         #endregion
-
-
     }
 }
