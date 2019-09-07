@@ -4,13 +4,9 @@
              x:Class="CountriesApp.Views.AsiaPage"
              Title="ASI"
              Icon="asia.png"
-             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
-             xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
-             xmlns:ffimageloadingsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
              BindingContext="{Binding Main, Source={StaticResource Locator}}">
 
     <ContentPage.Content>
-        <!--<StackLayout BindingContext="{Binding CountryView}">-->
             <StackLayout BindingContext="{Binding AsiaView}">
                 <SearchBar 
                 SearchCommand="{Binding SearchCommand}" 
@@ -19,9 +15,13 @@
                 Placeholder="Search for a country!"/>
                 <ActivityIndicator IsRunning="{Binding IsRunning}" IsVisible="{Binding IsRunning}"></ActivityIndicator>
                 <StackLayout HorizontalOptions="Center" Padding="10" Spacing="10">
-                    <ListView HasUnevenRows="True" ItemTemplate="{StaticResource templateList}" ItemsSource="{Binding Asia}"/>
+                    <ListView HasUnevenRows="True" 
+                              ItemTemplate="{StaticResource templateList}" 
+                              ItemsSource="{Binding Asia}"
+                              IsPullToRefreshEnabled="True"
+                              IsRefreshing="{Binding IsRunning, Mode=TwoWay}"
+                              RefreshCommand="{Binding RefreshCommand}"/>
                 </StackLayout>
             </StackLayout>
-        <!--</StackLayout>-->
     </ContentPage.Content>
 </ContentPage>

@@ -4,13 +4,9 @@
              x:Class="CountriesApp.Views.AfricaPage"
              Title="AFR"
              Icon="africa.png"
-             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
-             xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
-             xmlns:ffimageloadingsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
              BindingContext="{Binding Main, Source={StaticResource Locator}}">
 
     <ContentPage.Content>
-        <!--<StackLayout BindingContext="{Binding CountryView}">-->
             <StackLayout BindingContext="{Binding AfricaView}">
                 <SearchBar 
                 SearchCommand="{Binding SearchCommand}" 
@@ -20,7 +16,6 @@
                 HorizontalOptions="Center"/>
                 <ActivityIndicator IsRunning="{Binding IsRunning}" IsVisible="{Binding IsRunning}"/>
                 <StackLayout HorizontalOptions="Center" Padding="10" Spacing="10">
-                    <!--isrefreshing es un activity indicator local-->
                     <ListView HasUnevenRows="True" 
                           ItemsSource="{Binding Africa}"
                           IsPullToRefreshEnabled="True"
@@ -29,6 +24,5 @@
                           RefreshCommand="{Binding RefreshCommand}"/>
                 </StackLayout>
             </StackLayout>
-        <!--</StackLayout>-->
     </ContentPage.Content>
 </ContentPage>
