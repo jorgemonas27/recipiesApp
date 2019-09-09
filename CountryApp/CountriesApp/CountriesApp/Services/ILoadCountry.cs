@@ -9,6 +9,6 @@ namespace CountriesApp.Services
 {
     public interface ILoadCountry<T> where T: Country
     {
-        Task<List<T>> LoadCountries(string baseURL);/*, ObservableCollection<T> regionCollection, List<T> cacheList);*/
+        Task<List<T>> LoadCountries(string baseURL);
     }
 }

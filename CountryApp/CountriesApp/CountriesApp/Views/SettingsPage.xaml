@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CountriesApp.Views.SettingsPage"
+             Title="Settings"
+             BindingContext="{Binding Main, Source={StaticResource Locator}}">
+    <ContentPage.Content>
+        <StackLayout HorizontalOptions="Center" VerticalOptions="CenterAndExpand" BindingContext="{Binding LoginView}">
+            <Label Text="Username" 
+                   HorizontalOptions="Start" 
+                   FontSize="Medium" 
+                   FontAttributes="Bold"
+                   TextColor="Black"/>
+            <Label Text="{Binding Email}"
+                   TextColor="Black"/>
+            <Button Command="{Binding LogoutCommand}" 
+                    Margin="0,20,0,0" 
+                    BackgroundColor="#ad0006" 
+                    TextColor="White" 
+                    CornerRadius="20" 
+                    Text="LOG OUT"></Button>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
+
+
