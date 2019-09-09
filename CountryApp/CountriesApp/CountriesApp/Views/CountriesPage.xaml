@@ -12,7 +12,7 @@
 
  
     <TabbedPage.ToolbarItems >
-        <ToolbarItem Name="iconexample" Icon="ic_shortcut_settings.png" Priority="0" Order="Primary"></ToolbarItem>
+        <ToolbarItem Name="iconexample" Icon="ic_shortcut_settings.png" Command="{Binding SettingsCommand}" Priority="0" Order="Primary"></ToolbarItem>
     </TabbedPage.ToolbarItems>
     
     <TabbedPage.Children>

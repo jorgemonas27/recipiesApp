@@ -29,7 +29,7 @@ namespace CountriesApp.Services
                 return false;
             }
 
-            await Task.Delay(2000);
+            await Task.Delay(1000);
 
 
             if (email != "jorgehmg17@gmail.com" || password != "1234")
