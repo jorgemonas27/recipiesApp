@@ -11,7 +11,8 @@ namespace CountriesApp.Services
 {
     public class ApiService:IService
     {
-        public async Task<Response> GetCountries(string baseUrl)
+
+        public async Task<Response> GetData(string baseUrl)
         {
             using (HttpClient client = new HttpClient())
             {

@@ -1,12 +1,31 @@
 ﻿using CountriesApp.Models;
+using CountriesApp.Views;
+using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows.Input;
 
 namespace CountriesApp.ViewModels
 {
     public class MainViewModel
     {
+
+
+        public ICommand SettingsCommand
+        {
+            get
+            {
+                return new RelayCommand(Settings);
+            }
+        }
+
+        private async void Settings()
+        {
+            await App.Current.MainPage.Navigation.PushAsync(new SettingsPage());
+        }
+
+
         #region Props
 
         public LoginViewModel LoginView { get; set; }

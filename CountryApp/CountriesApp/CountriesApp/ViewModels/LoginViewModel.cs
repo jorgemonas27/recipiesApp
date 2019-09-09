@@ -1,10 +1,12 @@
 ﻿using CountriesApp.Services;
 using CountriesApp.Validators;
 using CountriesApp.Views;
+using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace CountriesApp.ViewModels
@@ -14,8 +16,22 @@ namespace CountriesApp.ViewModels
 
 
         #region Commands
-        public Command LoginCommand { get; set; }
+        public ICommand LoginCommand
+        {
+            get
+            {
+                return new RelayCommand(Login);
+            }
+        }
 
+        public ICommand LogoutCommand
+        {
+            get
+            {
+                return new RelayCommand(Logout);
+            }
+        }
+        
         #endregion
 
 
@@ -76,7 +92,6 @@ namespace CountriesApp.ViewModels
         #region Ctor
         public LoginViewModel()
         {
-            LoginCommand = new Command(Login);
             login = new Login();
             IsEnabled = true;
         }
@@ -90,14 +105,17 @@ namespace CountriesApp.ViewModels
             IsRunning = true;
             if (await login.LoginUser(Email, Password))
             {
-                //MainViewModel.GetInstace().AfricaView = new AfricaViewModel();
-                //MainViewModel.GetInstace().AsiaView = new AsiaViewModel();
-                //MainViewModel.GetInstace().AmericasView = new AmericasViewModel();
-                //MainViewModel.GetInstace().EuropeView = new EuropeViewModel();
-                //MainViewModel.GetInstace().OceaniaView = new OceaniaViewModel();
-
                 await App.Current.MainPage.Navigation.PushAsync(new CountriesPage());
             }
+        }
+
+        private async void Logout()
+        {
+            await App.Current.MainPage.Navigation.PopToRootAsync();
+            this.Email = string.Empty;
+            this.Password = string.Empty;
+            this.IsRunning = false;
+            this.IsEnabled = true;
         }
         #endregion
     }

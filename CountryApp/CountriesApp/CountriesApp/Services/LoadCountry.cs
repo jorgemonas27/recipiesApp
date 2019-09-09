@@ -7,22 +7,27 @@
 
     public class LoadCountry : ILoadCountry<Country>
     {
+        #region Props
         public List<Country> cacheList { get; set; }
-
         private ApiService service;
         private MessageManager message;
 
+        #endregion
+
+        #region Ctor
         public LoadCountry()
         {
             service = new ApiService();
             message = new MessageManager();
         }
-        
+        #endregion
+
+        #region Methods
         public async Task<List<Country>> LoadCountries(string baseURL)
         {
             try
             {
-                var response = await service.GetCountries(baseURL);
+                var response = await service.GetData(baseURL);
                 if (!response.IsSuccess)
                 {
                     message.ShowMessage("Error", response.Message, "Ok");
@@ -37,5 +42,7 @@
                 throw new ArgumentException(ex.Message);
             }
         }
+
+        #endregion
     }
 }
