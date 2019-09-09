@@ -4,6 +4,7 @@ using CountriesApp.Views;
 using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -13,8 +14,6 @@ namespace CountriesApp.ViewModels
 {
     public class LoginViewModel : BaseViewModel
     {
-
-
         #region Commands
         public ICommand LoginCommand
         {
@@ -39,32 +38,33 @@ namespace CountriesApp.ViewModels
 
         private Login login;
 
-        private string email = "jorgehmg17@gmail.com";
+        private string email;
 
         public string Email
         {
             get { return email; }
             set
             {
-                email = value;
+                UserSettings.Username = value;
+                email = UserSettings.Username;
                 SetValue(ref email, value);
             }
         }
 
-        private string password = "1234";
+        private string password;
 
         public string Password
         {
             get { return password; }
             set
             {
-                password = value;
+                UserSettings.Password = value;
+                password = UserSettings.Password;
                 SetValue(ref password, value);
             }
         }
 
-        private bool isrunning = false;
-
+        private bool isrunning;
         public bool IsRunning
         {
             get { return isrunning; }
@@ -94,6 +94,7 @@ namespace CountriesApp.ViewModels
         {
             login = new Login();
             IsEnabled = true;
+            IsRunning = false;
         }
         #endregion
 
@@ -105,15 +106,24 @@ namespace CountriesApp.ViewModels
             IsRunning = true;
             if (await login.LoginUser(Email, Password))
             {
+                IsEnabled = true;
+                IsRunning = false;
+               
                 await App.Current.MainPage.Navigation.PushAsync(new CountriesPage());
+            }
+            else
+            {
+                IsEnabled = true;
+                IsRunning = false;
             }
         }
 
         private async void Logout()
         {
+            UserSettings.ClearAllData();
+            Email = UserSettings.Username;
+            Password = UserSettings.Password;
             await App.Current.MainPage.Navigation.PopToRootAsync();
-            this.Email = string.Empty;
-            this.Password = string.Empty;
             this.IsRunning = false;
             this.IsEnabled = true;
         }
