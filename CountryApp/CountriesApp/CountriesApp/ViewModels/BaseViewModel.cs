@@ -23,6 +23,5 @@ namespace CountriesApp.ViewModels
             backingField = value;
             OnPropertyChanged(property);
         }
-
     }
 }

@@ -29,14 +29,14 @@ namespace CountriesApp.Services
                 return false;
             }
 
-            await Task.Delay(2000);
-
+            await Task.Delay(500);
 
             if (email != "jorgehmg17@gmail.com" || password != "1234")
             {
                 message.ShowMessage("Error", "The credentials are not valid please check the email and password");
                 return false;
             }
+
             return true;
         }
 
