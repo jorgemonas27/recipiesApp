@@ -5,19 +5,17 @@
              xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
              xmlns:ffimageloadingsvg="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
-             xmlns:infra="clr-namespace:CountriesApp.Infraestructure">
+             xmlns:infra="clr-namespace:CountriesApp.Infraestructure"
+             xmlns:local="clr-namespace:EventToCommandBehavior">
     <Application.Resources>
         <ResourceDictionary>
             <infra:InstaceLocator x:Key="Locator"></infra:InstaceLocator>
-            
+            <local:SelectedItemEventArgsToSelectedItemConverter x:Key="SelectedItemConverter" />
             <ffimageloadingsvg:SvgImageSourceConverter x:Key="SvgImageSourceConverter"/>
 
             <DataTemplate x:Key="templateList">
                 <ViewCell>
-                    <Frame CornerRadius="20" HasShadow="True" Margin="5">
-                        <Frame.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding DetailsCommand, Mode=TwoWay}"></TapGestureRecognizer>
-                        </Frame.GestureRecognizers>
+                    <Frame HasShadow="True" Margin="5">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto"/>

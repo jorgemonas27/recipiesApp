@@ -1,13 +1,10 @@
-﻿using CountriesApp.Converter;
-using CountriesApp.Models;
+﻿using CountriesApp.Models;
 using CountriesApp.Services;
 using CountriesApp.Views;
 using GalaSoft.MvvmLight.Command;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 using System.Windows.Input;
 
 namespace CountriesApp.ViewModels
@@ -24,7 +21,6 @@ namespace CountriesApp.ViewModels
             }
         }
 
-
         public ICommand SearchCommand
         {
             get
@@ -33,26 +29,20 @@ namespace CountriesApp.ViewModels
             }
         }
 
-        public ICommand DetailsCommand
+        public ICommand SelectedItemCommand
         {
             get
             {
-                return new RelayCommand(Details);
+                return new RelayCommand<Country>(SelectedCountry);
             }
         }
-
-        private async void Details()
-        {
-            await App.Current.MainPage.Navigation.PushAsync(new CountryDetailPage());
-        }
-
+ 
         #endregion
 
-
         #region Props
-        private ObservableCollection<CountryItemViewModel> asia;
+        private ObservableCollection<Country> asia;
 
-        public ObservableCollection<CountryItemViewModel> Asia
+        public ObservableCollection<Country> Asia
         {
             get { return asia; }
             set
@@ -107,16 +97,21 @@ namespace CountriesApp.ViewModels
         private async void GetAsiaCountries()
         {
             IsRunning = true;
-            this.asiaList = await loadCountry.LoadCountries("https://restcountries.eu/rest/v2/region/asia");
+            this.asiaList = await loadCountry.LoadCountries(Resources.Resources.AsiaURL);
             var sortedList = this.asiaList.OrderBy(country => country.Name).ToList();
-            Asia = new ObservableCollection<CountryItemViewModel>(ViewModelParser.ToCountryItemViewModel(sortedList));
+            Asia = new ObservableCollection<Country>(sortedList);
             IsRunning = false;
         }
 
         private void SearchAsia()
         {
-            var countries = ViewModelParser.ToCountryItemViewModel(asiaList);
-            Asia = searchCountry.SearchCountries(KeySearch, countries, Asia);
+            Asia = searchCountry.SearchCountries(KeySearch, asiaList, Asia);
+        }
+
+        private async void SelectedCountry(Country selectedCountry)
+        {
+            MainViewModel.GetInstace().CountryDetailView = new CountryDetailViewModel(selectedCountry);
+            await App.Current.MainPage.Navigation.PushAsync(new CountryDetailPage());
         }
 
         #endregion

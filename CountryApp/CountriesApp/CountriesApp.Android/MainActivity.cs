@@ -6,6 +6,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using Firebase;
 
 namespace CountriesApp.Droid
 {
@@ -20,6 +21,7 @@ namespace CountriesApp.Droid
             base.OnCreate(savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             FFImageLoading.Forms.Platform.CachedImageRenderer.Init(true);
+            FirebaseApp.InitializeApp(Application.Context);
             LoadApplication(new App());
         }
     }

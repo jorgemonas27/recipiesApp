@@ -4,6 +4,7 @@
              x:Class="CountriesApp.Views.EuropePage"
              Title="EUR"
              Icon="europe.png"
+             xmlns:local ="clr-namespace:EventToCommandBehavior"
              BindingContext="{Binding Main, Source={StaticResource Locator}}">
 
     <ContentPage.Content>
@@ -20,8 +21,13 @@
                               ItemsSource="{Binding Europe}"
                               IsPullToRefreshEnabled="True"
                               IsRefreshing="{Binding IsRunning, Mode=TwoWay}"
-                              RefreshCommand="{Binding RefreshCommand}"/>
-                </StackLayout>
+                              RefreshCommand="{Binding RefreshCommand}"
+                              VerticalOptions="FillAndExpand">
+                    <ListView.Behaviors>
+                        <local:EventToCommandBehavior EventName="ItemSelected" Command="{Binding SelectedItemCommand}" Converter="{StaticResource SelectedItemConverter}"/>
+                    </ListView.Behaviors>
+                </ListView>
+            </StackLayout>
             </StackLayout>
     </ContentPage.Content>
 </ContentPage>

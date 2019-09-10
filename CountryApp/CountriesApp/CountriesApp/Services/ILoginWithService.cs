@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace CountriesApp.Services
 {
-    public interface ILogin
+    public interface ILoginWithService
     {
-        Task<bool> LoginUser(string email, string password);
+        Task<string> LoginFirebase(string mail, string password);
     }
 }

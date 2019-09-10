@@ -45,7 +45,6 @@ namespace CountriesApp.ViewModels
         {
             Main = this;
             LoginView = new LoginViewModel();
-            //CountryDetailView = new CountryDetailViewModel();
             AfricaView = new AfricaViewModel();
             AmericasView = new AmericasViewModel();
             AsiaView = new AsiaViewModel();

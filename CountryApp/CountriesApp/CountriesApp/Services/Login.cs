@@ -3,37 +3,48 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace CountriesApp.Services
 {
-    public class Login : ILogin
+    public class Login : IAuth
     {
         private MessageManager message;
+        private ValidateLoginFields validator;
+        private const int Time = 500;
+        IAuth auth;
 
         public Login()
         {
             message = new MessageManager();
+            validator = new ValidateLoginFields();
+            auth = DependencyService.Get<IAuth>();
+        }
+
+        public async Task<string> LoginFirebaseService(string email, string password)
+        {
+            validator.ValidateCredentials(email, password);
+            validator.ValidateEmail(email);
+
+            string token = await auth.LoginFirebaseService(email, password);
+            if (string.IsNullOrEmpty(token))
+            {
+                message.ShowMessage(Resources.Resources.Error, Resources.Resources.AuthenticationFailed, Resources.Resources.OkMessage);
+                return string.Empty;
+            }
+            return token;
         }
 
         public async Task<bool> LoginUser(string email, string password)
         {
-            if (ValidateLoginFields.IsEmptyField(email, password))
-            {
-                message.ShowMessage("Error", "The email or password is empty");
-                return false;
-            }
+            validator.ValidateCredentials(email, password);
+            validator.ValidateEmail(email);
 
-            if (!ValidateLoginFields.IsValidEmail(email))
-            {
-                message.ShowMessage("Error", "The email is not a valid email please check it");
-                return false;
-            }
+            await Task.Delay(Time);
 
-            await Task.Delay(500);
-
-            if (email != "jorgehmg17@gmail.com" || password != "1234")
+            if (email != Resources.Resources.HardCodedEmail || password != Resources.Resources.HardCodedPass)
             {
-                message.ShowMessage("Error", "The credentials are not valid please check the email and password");
+                message.ShowMessage(Resources.Resources.Error, Resources.Resources.Errorhardcoded);
                 return false;
             }
 

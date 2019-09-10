@@ -30,7 +30,7 @@
                 var response = await service.GetData(baseURL);
                 if (!response.IsSuccess)
                 {
-                    message.ShowMessage("Error", response.Message, "Ok");
+                    message.ShowMessage(Resources.Resources.Error, response.Message, Resources.Resources.OkMessage);
                     return new List<Country>();
                 }
 

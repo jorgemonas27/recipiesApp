@@ -38,6 +38,8 @@ namespace CountriesApp.ViewModels
 
         private Login login;
 
+        private MessageManager message;
+
         private string email;
 
         public string Email
@@ -86,7 +88,7 @@ namespace CountriesApp.ViewModels
                 SetValue(ref isenabled, value);
             }
         }
-
+        
         #endregion
 
         #region Ctor
@@ -95,6 +97,8 @@ namespace CountriesApp.ViewModels
             login = new Login();
             IsEnabled = true;
             IsRunning = false;
+            message = new MessageManager();
+             
         }
         #endregion
 
@@ -127,6 +131,18 @@ namespace CountriesApp.ViewModels
             this.IsRunning = false;
             this.IsEnabled = true;
         }
+
+        private async void LoginFirebase()
+        {
+            IsRunning = true;
+            var token = await login.LoginFirebaseService(Email, Password);
+            if (!string.IsNullOrEmpty(token))
+            {
+                await App.Current.MainPage.Navigation.PushAsync(new CountriesPage());
+            }
+            IsRunning = false;
+        }
+
         #endregion
     }
 }

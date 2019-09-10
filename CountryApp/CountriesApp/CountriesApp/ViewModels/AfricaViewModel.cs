@@ -1,15 +1,11 @@
-﻿using CountriesApp.Converter;
-using CountriesApp.Models;
+﻿using CountriesApp.Models;
 using CountriesApp.Services;
 using CountriesApp.Views;
 using GalaSoft.MvvmLight.Command;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 using System.Windows.Input;
-using Xamarin.Forms;
 
 namespace CountriesApp.ViewModels
 {
@@ -17,9 +13,9 @@ namespace CountriesApp.ViewModels
     {
         #region props
 
-        private ObservableCollection<CountryItemViewModel> africa;
+        private ObservableCollection<Country> africa;
 
-        public ObservableCollection<CountryItemViewModel> Africa
+        public ObservableCollection<Country> Africa
         {
             get { return africa; }
             set
@@ -66,7 +62,6 @@ namespace CountriesApp.ViewModels
             }
         }
 
-
         private LoadCountry loadCountry;
         private SearchCountry searchCountry;
         private List<Country> africaCountries;
@@ -90,6 +85,14 @@ namespace CountriesApp.ViewModels
             }
         }
 
+        public ICommand SelectedItemCommand
+        {
+            get
+            {
+                return new RelayCommand<Country>(SelectedCountry);
+            }
+        }
+
         #endregion
 
         #region Ctor
@@ -107,17 +110,23 @@ namespace CountriesApp.ViewModels
         private async void GetAfricaCountries()
         {
             IsRunning = true;
-            this.africaCountries = await loadCountry.LoadCountries("https://restcountries.eu/rest/v2/region/africa");
+            this.africaCountries = await loadCountry.LoadCountries(Resources.Resources.AfricaURL);
             var sortedList = africaCountries.OrderBy(country => country.Name).ToList();
-            Africa = new ObservableCollection<CountryItemViewModel>(ViewModelParser.ToCountryItemViewModel(sortedList));
+            Africa = new ObservableCollection<Country>(sortedList);
             IsRunning = false;
         }
 
         private void SearchAfrica()
         {
-            var countries = ViewModelParser.ToCountryItemViewModel(africaCountries);
-            Africa = searchCountry.SearchCountries(KeySearch, countries, Africa);
+            Africa = searchCountry.SearchCountries(KeySearch, africaCountries, Africa);
         }
+
+        private async void SelectedCountry(Country selectedCountry)
+        {
+            MainViewModel.GetInstace().CountryDetailView = new CountryDetailViewModel(selectedCountry);
+            await App.Current.MainPage.Navigation.PushAsync(new CountryDetailPage());
+        }
+
 
         #endregion
     }

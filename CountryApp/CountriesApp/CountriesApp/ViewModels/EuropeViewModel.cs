@@ -1,13 +1,10 @@
-﻿using CountriesApp.Converter;
-using CountriesApp.Models;
+﻿using CountriesApp.Models;
 using CountriesApp.Services;
 using CountriesApp.Views;
 using GalaSoft.MvvmLight.Command;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
 using System.Windows.Input;
 
 namespace CountriesApp.ViewModels
@@ -33,26 +30,21 @@ namespace CountriesApp.ViewModels
             }
         }
 
-        public ICommand DetailsCommand
+        public ICommand SelectedItemCommand
         {
             get
             {
-                return new RelayCommand(Details);
+                return new RelayCommand<Country>(SelectedCountry);
             }
         }
-
-        private async void Details()
-        {
-            await App.Current.MainPage.Navigation.PushAsync(new CountryDetailPage());
-        }
-
+        
         #endregion
 
 
         #region Props
-        private ObservableCollection<CountryItemViewModel> europe;
+        private ObservableCollection<Country> europe;
 
-        public ObservableCollection<CountryItemViewModel> Europe
+        public ObservableCollection<Country> Europe
         {
             get { return europe; }
             set
@@ -107,17 +99,23 @@ namespace CountriesApp.ViewModels
         private async void GetEuropeCountries()
         {
             IsRunning = true;
-            this.europeList = await loadCountry.LoadCountries("https://restcountries.eu/rest/v2/region/europe");
+            this.europeList = await loadCountry.LoadCountries(Resources.Resources.EuropeURL);
             var sortedList = this.europeList.OrderBy(country => country.Name).ToList();
-            Europe = new ObservableCollection<CountryItemViewModel>(ViewModelParser.ToCountryItemViewModel(sortedList));
+            Europe = new ObservableCollection<Country>(sortedList);
             IsRunning = false;
         }
 
         private void SearchEurope()
         {
-            var countries = ViewModelParser.ToCountryItemViewModel(europeList);
-            Europe = searchCountry.SearchCountries(KeySearch, countries, Europe);
+            Europe = searchCountry.SearchCountries(KeySearch, europeList, Europe);
         }
+
+        private async void SelectedCountry(Country selectedCountry)
+        {
+            MainViewModel.GetInstace().CountryDetailView = new CountryDetailViewModel(selectedCountry);
+            await App.Current.MainPage.Navigation.PushAsync(new CountryDetailPage());
+        }
+
         #endregion
     }
 }
