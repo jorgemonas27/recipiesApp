@@ -32,6 +32,7 @@ namespace CountriesApp.ViewModels
         //public CountryViewModel CountryView { get; set; }
         public static MainViewModel Main { get; set; }
         public CountryDetailViewModel CountryDetailView { get; set; }
+        //public CommunPage CommunView { get; set; }
         public AfricaViewModel AfricaView { get; set; }
         public AmericasViewModel AmericasView { get; set; }
         public AsiaViewModel AsiaView { get; set; }

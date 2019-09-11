@@ -112,7 +112,7 @@ namespace CountriesApp.ViewModels
             {
                 IsEnabled = true;
                 IsRunning = false;
-               
+
                 await App.Current.MainPage.Navigation.PushAsync(new CountriesPage());
             }
             else
@@ -122,12 +122,28 @@ namespace CountriesApp.ViewModels
             }
         }
 
+        public string AppSettingUser
+        {
+            get
+            {
+                return UserSettings.Username;
+            }
+        }
+
+        public string AppSettingPassword
+        {
+            get
+            {
+                return UserSettings.Password;
+            }
+        }
+        
         private async void Logout()
         {
             UserSettings.ClearAllData();
             Email = UserSettings.Username;
             Password = UserSettings.Password;
-            await App.Current.MainPage.Navigation.PopToRootAsync();
+            await App.Current.MainPage.Navigation.PushAsync(new LoginPage(), true);
             this.IsRunning = false;
             this.IsEnabled = true;
         }

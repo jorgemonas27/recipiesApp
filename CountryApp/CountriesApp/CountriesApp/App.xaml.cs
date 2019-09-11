@@ -1,4 +1,5 @@
-﻿using CountriesApp.Views;
+﻿using CountriesApp.Services;
+using CountriesApp.Views;
 using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -15,10 +16,20 @@ namespace CountriesApp
         {
             InitializeComponent();
 
-            MainPage = new NavigationPage(new LoginPage())
+            if (string.IsNullOrEmpty(UserSettings.Username) && string.IsNullOrEmpty(UserSettings.Password))
             {
-                BarBackgroundColor = Color.FromHex("#084c9e")
-            };
+                MainPage = new NavigationPage(new LoginPage())
+                {
+                    BarBackgroundColor = Color.FromHex("#084c9e")
+                };
+            }
+            else
+            {
+                MainPage = new NavigationPage(new CountriesPage())
+                {
+                    BarBackgroundColor = Color.FromHex("#084c9e")
+                };
+            }
         }
 
         protected override void OnStart()

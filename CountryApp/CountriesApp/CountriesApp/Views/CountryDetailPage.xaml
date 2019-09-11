@@ -24,7 +24,7 @@
             <StackLayout Padding="10" Spacing="10">
                 <Label Text="{Binding Country.Name}" 
                        HorizontalOptions="Center" 
-                       VerticalOptions="CenterAndExpand" 
+                       VerticalOptions="StartAndExpand" 
                        FontSize="Large"  
                        FontAttributes="Bold"
                        TextColor="Black"></Label>
@@ -33,16 +33,16 @@
                        WidthRequest="400"
                        Source="{Binding Country.Flag, Converter={StaticResource SvgImageSourceConverter}}">
                     <ffimageloading:CachedImage.Transformations>
-                        <fftransformations:RoundedTransformation Radius="50"/>
+                        <fftransformations:RoundedTransformation Radius="20"/>
                     </ffimageloading:CachedImage.Transformations>
                 </ffimageloading:CachedImage>
-                <Label Text="General Info" TextColor="Black" HorizontalOptions="Center" FontAttributes="Bold" FontSize="Medium"/>
+                <Label Text="General Info" TextColor="Black" HorizontalOptions="Center"  VerticalOptions="CenterAndExpand" FontAttributes="Bold" FontSize="Medium"/>
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"></ColumnDefinition>
                         <ColumnDefinition Width="*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <StackLayout Grid.Column="0" HorizontalOptions="Center" Margin="20">
+                    <StackLayout Grid.Column="0" HorizontalOptions="Center" VerticalOptions="CenterAndExpand" Margin="20">
                         <Label FontAttributes="Bold" Text="Alpha Code:" Style="{StaticResource styleLabel}"></Label>
                         <Label FontAttributes="Bold" Text="Capital:" Style="{StaticResource styleLabel}"/>
                         <Label FontAttributes="Bold" Text="Region:" Style="{StaticResource styleLabel}"/>
