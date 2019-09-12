@@ -15,7 +15,10 @@ namespace CountriesApp
         public App()
         {
             InitializeComponent();
+        }
 
+        protected override void OnStart()
+        {
             if (string.IsNullOrEmpty(UserSettings.Username) && string.IsNullOrEmpty(UserSettings.Password))
             {
                 MainPage = new NavigationPage(new LoginPage())
@@ -30,11 +33,6 @@ namespace CountriesApp
                     BarBackgroundColor = Color.FromHex("#084c9e")
                 };
             }
-        }
-
-        protected override void OnStart()
-        {
-            // Handle when your app starts
         }
 
         protected override void OnSleep()

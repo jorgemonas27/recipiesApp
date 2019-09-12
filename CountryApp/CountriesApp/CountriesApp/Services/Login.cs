@@ -21,19 +21,12 @@ namespace CountriesApp.Services
             auth = DependencyService.Get<IAuth>();
         }
 
-        public async Task<string> LoginFirebaseService(string email, string password)
+        public async Task<bool> SignInFirebase(string email, string password)
         {
-            validator.ValidateCredentials(email, password);
-            validator.ValidateEmail(email);
 
-            string token = await auth.LoginFirebaseService(email, password);
-            if (string.IsNullOrEmpty(token))
-            {
-                message.ShowMessage(Resources.Resources.Error, Resources.Resources.AuthenticationFailed, Resources.Resources.OkMessage);
-                return string.Empty;
-            }
-            return token;
+            return await auth.LoginUser(email, password);
         }
+
 
         public async Task<bool> LoginUser(string email, string password)
         {
@@ -51,5 +44,14 @@ namespace CountriesApp.Services
             return true;
         }
 
+        public bool IsUserSign()
+        {
+            return auth.IsUserSign();
+        }
+
+        public bool LogoutUser()
+        {
+            return auth.LogoutUser();
+        }
     }
 }

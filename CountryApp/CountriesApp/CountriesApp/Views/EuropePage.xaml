@@ -18,7 +18,7 @@
                 <StackLayout HorizontalOptions="Center" Padding="10" Spacing="10">
                     <ListView HasUnevenRows="True" 
                               ItemTemplate="{StaticResource templateList}" 
-                              ItemsSource="{Binding Europe}"
+                              ItemsSource="{Binding Region}"
                               IsPullToRefreshEnabled="True"
                               IsRefreshing="{Binding IsRunning, Mode=TwoWay}"
                               RefreshCommand="{Binding RefreshCommand}"

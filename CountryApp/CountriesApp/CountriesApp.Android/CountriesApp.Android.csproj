@@ -95,10 +95,10 @@
       <Version>2.4.11.982</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Firebase.Auth">
-      <Version>71.1605.0</Version>
+      <Version>60.1142.1</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Firebase.Core">
-      <Version>71.1601.0</Version>
+      <Version>60.1142.1</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Forms" Version="4.2.0.709249" />
   </ItemGroup>
@@ -107,6 +107,7 @@
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="MySearchBarRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <GoogleServicesJson Include="google-services.json" />

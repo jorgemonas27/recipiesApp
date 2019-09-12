@@ -9,7 +9,7 @@
     {
         #region Props
         public List<Country> cacheList { get; set; }
-        private ApiService service;
+        private IService service;
         private MessageManager message;
 
         #endregion
@@ -19,6 +19,11 @@
         {
             service = new ApiService();
             message = new MessageManager();
+        }
+
+        public LoadCountry(IService service)
+        {
+            this.service = service;
         }
         #endregion
 
@@ -33,8 +38,8 @@
                     message.ShowMessage(Resources.Resources.Error, response.Message, Resources.Resources.OkMessage);
                     return new List<Country>();
                 }
-
-                cacheList = (List<Country>)response.Result;
+                  
+                cacheList = response.Result;
                 return cacheList;
             }
             catch (Exception ex)

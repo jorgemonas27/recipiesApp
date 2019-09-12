@@ -19,24 +19,37 @@ namespace CountriesApp.Droid
 {
     public class AuthDroid : IAuth
     {
-        public async Task<string> LoginFirebaseService(string email, string password)
+        public async Task<bool> LoginUser(string email, string password)
         {
             try
             {
-                var user = await FirebaseAuth.Instance.SignInWithEmailAndPasswordAsync(email, password);
-                var token = await user.User.GetIdTokenAsync(false);
-                return token.Token;
+                await Firebase.Auth.FirebaseAuth.GetInstance(MainActivity.app).SignInWithEmailAndPasswordAsync(email, password);
+                return true;
             }
-            catch (FirebaseAuthInvalidUserException e)
+            catch (Exception e)
             {
-                e.PrintStackTrace();
-                return string.Empty;
+                return false;
             }
         }
 
-        public Task<bool> LoginUser(string email, string password)
+        public bool IsUserSign()
         {
-            throw new NotImplementedException();
+            var user = Firebase.Auth.FirebaseAuth.GetInstance(MainActivity.app).CurrentUser;
+            var signedIn = user != null;
+            return signedIn;
+        }
+
+        public bool LogoutUser()
+        {
+            try
+            {
+                Firebase.Auth.FirebaseAuth.GetInstance(MainActivity.app).SignOut();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
     }
 }

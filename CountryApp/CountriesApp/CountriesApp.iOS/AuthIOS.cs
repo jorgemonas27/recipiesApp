@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using CountriesApp.iOS;
 using CountriesApp.Services;
@@ -15,24 +16,58 @@ namespace CountriesApp.iOS
 {
     public class AuthIOS : IAuth
     {
-        public async Task<string> LoginFirebaseService(string email, string password)
+        private static bool hasLoginResult = false;
+        private static bool loginResult = false;
+        private static bool signUpResult = false;
+        CancellationTokenSource tokenSource = new CancellationTokenSource();
+        CancellationToken token;
+        Task task;
+
+        public bool IsUserSign()
         {
-            try
-            {
-                var user = await Auth.DefaultInstance.SignInWithPasswordAsync(email, password);
-                return await user.User.GetIdTokenAsync();
-            }
-            catch (Exception e)
-            {
-                return string.Empty;
-            }
+            var user = Auth.DefaultInstance.CurrentUser;
+            return user != null;
         }
 
-        public Task<bool> LoginUser(string email, string password)
+        public async Task<bool> LoginUser(string email, string password)
         {
-            throw new NotImplementedException();
+            await Auth.DefaultInstance.SignInWithPasswordAsync(email, password);
+            token = tokenSource.Token;
+            task = Task.Factory.StartNew(async () =>
+            {
+                await Task.Delay(4000);
+            }, token).Unwrap();
+            await task;
+
+            return loginResult;
+        }
+
+        public bool LogoutUser()
+        {
+            NSError error;
+            var signedOut = Auth.DefaultInstance.SignOut(out error);
+
+            if (signedOut =! true)
+            {
+                AuthErrorCode errorCode;
+                if (IntPtr.Size == 8) // 64 bits devices
+                    errorCode = (AuthErrorCode)((long)error.Code);
+                else // 32 bits devices
+                    errorCode = (AuthErrorCode)((int)error.Code);
+
+                // Posible error codes that SignOut method with credentials could throw
+                // Visit https://firebase.google.com/docs/auth/ios/errors for more information
+                switch (errorCode)
+                {
+                    case AuthErrorCode.KeychainError:
+                    default:
+                        return false;
+                }
+            }
+            else
+            {
+                return true;
+            }
         }
     }
-
-    
 }

@@ -5,29 +5,35 @@
              Title="AFR"
              Icon="africa.png"
              xmlns:local ="clr-namespace:EventToCommandBehavior"
+             xmlns:custom ="clr-namespace:CountriesApp; assembly=CountriesApp" 
              BindingContext="{Binding Main, Source={StaticResource Locator}}">
 
     <ContentPage.Content>
         <StackLayout BindingContext="{Binding AfricaView}">
-            <SearchBar 
+            <!--<SearchBar 
                 SearchCommand="{Binding SearchCommand}" 
                 Text="{Binding KeySearch, Mode=TwoWay}" 
                 Margin="0,20,0,0" 
                 Placeholder="Search for a country!" 
-                HorizontalOptions="Center"/>
+                HorizontalOptions="Center"/>-->
+            <custom:MySearchBar 
+                SearchCommand="{Binding SearchCommand}"
+                Text="{Binding KeySearch, Mode=TwoWay}" 
+                Margin="0,20,0,0" 
+                Placeholder="Search for a country!" 
+                HorizontalOptions="Center"/> 
+            <ActivityIndicator IsRunning="{Binding IsRunning}" IsVisible="{Binding IsRunning}"/>
             <StackLayout HorizontalOptions="Center" VerticalOptions="CenterAndExpand" Padding="10" Spacing="10">
                 <ListView HasUnevenRows="True" 
-                          ItemsSource="{Binding Africa}"
+                          ItemsSource="{Binding Region}"
                           IsPullToRefreshEnabled="True"
                           ItemTemplate="{StaticResource templateList}"
                           IsRefreshing="{Binding IsRunning, Mode=TwoWay}"
-                          RefreshCommand="{Binding RefreshCommand}"
-                          VerticalOptions="CenterAndExpand">
+                          RefreshCommand="{Binding RefreshCommand}">
                     <ListView.Behaviors>
                         <local:EventToCommandBehavior EventName="ItemSelected" Command="{Binding SelectedItemCommand}" Converter="{StaticResource SelectedItemConverter}"/>
                     </ListView.Behaviors>
                 </ListView>
-                <ActivityIndicator IsRunning="{Binding IsRunning}" IsVisible="{Binding IsRunning}"/>
             </StackLayout>
 
         </StackLayout>
