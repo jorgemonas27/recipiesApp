@@ -4,25 +4,34 @@
              x:Class="CountriesApp.Views.AfricaPage"
              Title="AFR"
              Icon="africa.png"
+             xmlns:local ="clr-namespace:EventToCommandBehavior"
+             xmlns:custom ="clr-namespace:CountriesApp; assembly=CountriesApp" 
              BindingContext="{Binding Main, Source={StaticResource Locator}}">
 
     <ContentPage.Content>
-            <StackLayout BindingContext="{Binding AfricaView}">
-                <SearchBar 
-                SearchCommand="{Binding SearchCommand}" 
+        <StackLayout BindingContext="{Binding AfricaView}" Margin="10" Spacing="10">
+            <custom:MySearchBar 
+                SearchCommand="{Binding SearchCommand}"
                 Text="{Binding KeySearch, Mode=TwoWay}" 
                 Margin="0,20,0,0" 
+                FontSize="15"
                 Placeholder="Search for a country!" 
-                HorizontalOptions="Center"/>
-                <ActivityIndicator IsRunning="{Binding IsRunning}" IsVisible="{Binding IsRunning}"/>
-                <StackLayout HorizontalOptions="Center" Padding="10" Spacing="10">
-                    <ListView HasUnevenRows="True" 
-                          ItemsSource="{Binding Africa}"
-                          IsPullToRefreshEnabled="True"
+                HorizontalOptions="Fill"
+                VerticalOptions="FillAndExpand"/> 
+            <ActivityIndicator IsRunning="{Binding IsRunning}" IsVisible="{Binding IsRunning}"/>
+            <StackLayout HorizontalOptions="Center" Padding="10" Spacing="10">
+                <ListView HasUnevenRows="True" 
+                          ItemsSource="{Binding Region}"
+                          IsPullToRefreshEnabled="False"
                           ItemTemplate="{StaticResource templateList}"
                           IsRefreshing="{Binding IsRunning, Mode=TwoWay}"
-                          RefreshCommand="{Binding RefreshCommand}"/>
-                </StackLayout>
+                          RefreshCommand="{Binding RefreshCommand}">
+                    <ListView.Behaviors>
+                        <local:EventToCommandBehavior EventName="ItemSelected" Command="{Binding SelectedItemCommand}" Converter="{StaticResource SelectedItemConverter}"/>
+                    </ListView.Behaviors>
+                </ListView>
             </StackLayout>
+
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

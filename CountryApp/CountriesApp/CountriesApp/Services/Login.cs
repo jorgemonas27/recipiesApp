@@ -1,44 +1,65 @@
-﻿using CountriesApp.Validators;
+﻿using CountriesApp.Models;
+using CountriesApp.Validators;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace CountriesApp.Services
 {
-    public class Login : ILogin
+    public class Login : IAuth
     {
         private MessageManager message;
+        private ValidateLoginFields validator;
+        private const int Time = 500;
+        IAuth auth;
 
         public Login()
         {
             message = new MessageManager();
+            validator = new ValidateLoginFields();
+            auth = DependencyService.Get<IAuth>();
         }
 
-        public async Task<bool> LoginUser(string email, string password)
+        public async Task<FirebaseResponse> SignInFirebase(string email, string password)
         {
-            if (ValidateLoginFields.IsEmptyField(email, password))
-            {
-                message.ShowMessage("Error", "The email or password is empty");
-                return false;
-            }
 
-            if (!ValidateLoginFields.IsValidEmail(email))
-            {
-                message.ShowMessage("Error", "The email is not a valid email please check it");
-                return false;
-            }
-
-            await Task.Delay(500);
-
-            if (email != "jorgehmg17@gmail.com" || password != "1234")
-            {
-                message.ShowMessage("Error", "The credentials are not valid please check the email and password");
-                return false;
-            }
-
-            return true;
+            return await auth.LoginUser(email, password);
         }
 
+
+        public async Task<FirebaseResponse> LoginUser(string email, string password)
+        {
+            validator.ValidateCredentials(email, password);
+            validator.ValidateEmail(email);
+
+            await Task.Delay(Time);
+
+            if (email != Resources.Resources.HardCodedEmail || password != Resources.Resources.HardCodedPass)
+            {
+                message.ShowMessage(Resources.Resources.Error, Resources.Resources.Errorhardcoded);
+                return new FirebaseResponse()
+                {
+                    Message = Resources.Resources.AuthenticationFailed,
+                    IsSuccessfull = false
+                };
+            }
+
+            return new FirebaseResponse()
+            {
+                IsSuccessfull = true
+            };
+        }
+
+        public bool IsUserSign()
+        {
+            return auth.IsUserSign();
+        }
+
+        public bool LogoutUser()
+        {
+            return auth.LogoutUser();
+        }
     }
 }

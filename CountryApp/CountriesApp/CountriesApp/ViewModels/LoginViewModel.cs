@@ -1,14 +1,7 @@
 ﻿using CountriesApp.Services;
-using CountriesApp.Validators;
 using CountriesApp.Views;
 using GalaSoft.MvvmLight.Command;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
-using Xamarin.Forms;
 
 namespace CountriesApp.ViewModels
 {
@@ -19,7 +12,7 @@ namespace CountriesApp.ViewModels
         {
             get
             {
-                return new RelayCommand(Login);
+                return new RelayCommand(LoginFirebase);
             }
         }
 
@@ -27,7 +20,7 @@ namespace CountriesApp.ViewModels
         {
             get
             {
-                return new RelayCommand(Logout);
+                return new RelayCommand(LogoutFirebase);
             }
         }
         
@@ -37,6 +30,8 @@ namespace CountriesApp.ViewModels
         #region Props
 
         private Login login;
+
+        private MessageManager message;
 
         private string email;
 
@@ -95,6 +90,7 @@ namespace CountriesApp.ViewModels
             login = new Login();
             IsEnabled = true;
             IsRunning = false;
+            message = new MessageManager();
         }
         #endregion
 
@@ -104,11 +100,12 @@ namespace CountriesApp.ViewModels
         {
             IsEnabled = false;
             IsRunning = true;
-            if (await login.LoginUser(Email, Password))
+            var response = await login.LoginUser(Email, Password);
+            if (response.IsSuccessfull)
             {
                 IsEnabled = true;
                 IsRunning = false;
-               
+
                 await App.Current.MainPage.Navigation.PushAsync(new CountriesPage());
             }
             else
@@ -118,15 +115,64 @@ namespace CountriesApp.ViewModels
             }
         }
 
-        private async void Logout()
+        public string AppSettingUser
+        {
+            get
+            {
+                return UserSettings.Username;
+            }
+        }
+
+        public string AppSettingPassword
+        {
+            get
+            {
+                return UserSettings.Password;
+            }
+        }
+        
+        private async void LogoutFirebase()
+        {
+            if (login.LogoutUser())
+            {
+                ClearCacheInformation();
+                await App.Current.MainPage.Navigation.PushAsync(new LoginPage(), true);
+                this.IsRunning = false;
+                this.IsEnabled = true;
+            }
+        }
+        
+
+        private async void DummyLogout()
+        {
+            ClearCacheInformation();
+            await App.Current.MainPage.Navigation.PushAsync(new LoginPage(), true);
+            this.IsRunning = false;
+            this.IsEnabled = true;
+        }
+
+        private void ClearCacheInformation()
         {
             UserSettings.ClearAllData();
             Email = UserSettings.Username;
             Password = UserSettings.Password;
-            await App.Current.MainPage.Navigation.PopToRootAsync();
-            this.IsRunning = false;
-            this.IsEnabled = true;
         }
+
+        private async void LoginFirebase()
+        {
+            IsRunning = true;
+            var response = await login.SignInFirebase(Email, Password);
+            if (!response.IsSuccessfull)
+            {
+                IsRunning = false;
+                message.ShowMessage(Resources.Resources.Error, response.Message, Resources.Resources.OkMessage);
+                return;
+            }
+            MainViewModel.GetInstace().CountryView = new CountryViewModel();
+            await App.Current.MainPage.Navigation.PushAsync(new CountriesPage(), true);
+            IsRunning = false;
+        }
+
         #endregion
     }
 }

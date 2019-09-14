@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1033752983123",
+    "firebase_url": "https://poccountriesapp.firebaseio.com",
+    "project_id": "poccountriesapp",
+    "storage_bucket": "poccountriesapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1033752983123:android:968083ff9594573458b8a6",
+        "android_client_info": {
+          "package_name": "com.companyname.CountriesApp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1033752983123-margb95fek6j6rdac88s2ffr9696u7vf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDz_7VAP6PPw5UCkl9xWi1KGOraEHvUZak"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1033752983123-margb95fek6j6rdac88s2ffr9696u7vf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

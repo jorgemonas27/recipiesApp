@@ -29,9 +29,10 @@ namespace CountriesApp.ViewModels
         #region Props
 
         public LoginViewModel LoginView { get; set; }
-        //public CountryViewModel CountryView { get; set; }
+        public CountryViewModel CountryView { get; set; }
         public static MainViewModel Main { get; set; }
         public CountryDetailViewModel CountryDetailView { get; set; }
+        //public CommunPage CommunView { get; set; }
         public AfricaViewModel AfricaView { get; set; }
         public AmericasViewModel AmericasView { get; set; }
         public AsiaViewModel AsiaView { get; set; }
@@ -44,8 +45,8 @@ namespace CountriesApp.ViewModels
         public MainViewModel()
         {
             Main = this;
+            //CountryView = new CountryViewModel();
             LoginView = new LoginViewModel();
-            //CountryDetailView = new CountryDetailViewModel();
             AfricaView = new AfricaViewModel();
             AmericasView = new AmericasViewModel();
             AsiaView = new AsiaViewModel();

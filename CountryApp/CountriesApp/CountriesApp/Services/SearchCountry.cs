@@ -8,19 +8,18 @@ using System.Text;
 
 namespace CountriesApp.Services
 {
-    public class SearchCountry : ISearchCountry<CountryItemViewModel>
+    public class SearchCountry : ISearchCountry<Country>
     {
-
-        public ObservableCollection<CountryItemViewModel> SearchCountries(string keySearch, List<CountryItemViewModel> cacheList, ObservableCollection<CountryItemViewModel> regionCollection)
+        public ObservableCollection<Country> SearchCountries(string keySearch, List<Country> cacheList, ObservableCollection<Country> regionCollection)
         {
             if (string.IsNullOrEmpty(keySearch))
             {
-                regionCollection = new ObservableCollection<CountryItemViewModel>(cacheList); //lista origi
+                regionCollection = new ObservableCollection<Country>(cacheList); //lista origi
                 return regionCollection;
             }
             else
             {
-                regionCollection = new ObservableCollection<CountryItemViewModel>(cacheList.Where(country => country.Name.ToLower().Contains(keySearch)));
+                regionCollection = new ObservableCollection<Country>(cacheList.Where(country => country.Name.ToLower().Contains(keySearch)));
             }
             return regionCollection;
         }

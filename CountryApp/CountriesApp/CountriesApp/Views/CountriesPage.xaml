@@ -4,13 +4,13 @@
              x:Class="CountriesApp.Views.CountriesPage"
              xmlns:local ="clr-namespace:CountriesApp.Views"
              BarBackgroundColor="#084c9e"
+             BackgroundColor="White"
              BarTextColor="White"
              Title="Countries"
              Icon="ic_launcher.png"
              BindingContext="{Binding Main, Source={StaticResource Locator}}"
              xmlns:viewModel="clr-namespace:CountriesApp.ViewModels">
 
- 
     <TabbedPage.ToolbarItems >
         <ToolbarItem Name="iconexample" Icon="ic_shortcut_settings.png" Command="{Binding SettingsCommand}" Priority="0" Order="Primary"></ToolbarItem>
     </TabbedPage.ToolbarItems>

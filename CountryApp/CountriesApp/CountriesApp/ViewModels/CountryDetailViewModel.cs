@@ -1,10 +1,5 @@
 ﻿using CountriesApp.Models;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Linq;
-using System.Text;
 
 namespace CountriesApp.ViewModels
 {
@@ -26,8 +21,6 @@ namespace CountriesApp.ViewModels
 
         public Currency Currency { get; set; }
         public Language Languages { get; set; }
-
-        public List<List<object>> Info;
 
         #endregion
 

@@ -1,4 +1,5 @@
-﻿using CountriesApp.Views;
+﻿using CountriesApp.Services;
+using CountriesApp.Views;
 using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -9,20 +10,29 @@ namespace CountriesApp
     public partial class App : Application
     {
         public static NavigationPage Navigator { get; internal set; }
+        public string AuthToken { get; set; }
 
         public App()
         {
             InitializeComponent();
-
-            MainPage = new NavigationPage(new LoginPage())
-            {
-                BarBackgroundColor = Color.FromHex("#084c9e")
-            };
         }
 
         protected override void OnStart()
         {
-            // Handle when your app starts
+            if (string.IsNullOrEmpty(UserSettings.Username) && string.IsNullOrEmpty(UserSettings.Password))
+            {
+                MainPage = new NavigationPage(new LoginPage())
+                {
+                    BarBackgroundColor = Color.FromHex("#084c9e")
+                };
+            }
+            else
+            {
+                MainPage = new NavigationPage(new CountriesPage())
+                {
+                    BarBackgroundColor = Color.FromHex("#084c9e")
+                };
+            }
         }
 
         protected override void OnSleep()
