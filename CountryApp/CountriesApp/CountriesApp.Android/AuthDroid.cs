@@ -10,6 +10,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using CountriesApp.Droid;
+using CountriesApp.Models;
 using CountriesApp.Services;
 using Firebase.Auth;
 using Xamarin.Forms;
@@ -19,16 +20,22 @@ namespace CountriesApp.Droid
 {
     public class AuthDroid : IAuth
     {
-        public async Task<bool> LoginUser(string email, string password)
+        public async Task<FirebaseResponse> LoginUser(string email, string password)
         {
             try
             {
                 await Firebase.Auth.FirebaseAuth.GetInstance(MainActivity.app).SignInWithEmailAndPasswordAsync(email, password);
-                return true;
+                return new FirebaseResponse()
+                {
+                    IsSuccessfull = true
+                };
             }
             catch (Exception e)
             {
-                return false;
+                return new FirebaseResponse()
+                {
+                    IsSuccessfull = true
+                };
             }
         }
 

@@ -76,6 +76,8 @@ namespace CountriesApp.ViewModels
         private SearchCountry searchCountry;
         private List<Country> regionList;
 
+        public Country CountrySelected { get; set; }
+
         #endregion
 
         #region ctor
@@ -83,6 +85,7 @@ namespace CountriesApp.ViewModels
         {
             loadCountry = new LoadCountry();
             searchCountry = new SearchCountry();
+            CountrySelected = null;
             GetCountries();
         }
         #endregion

@@ -1,4 +1,5 @@
-﻿using CountriesApp.Validators;
+﻿using CountriesApp.Models;
+using CountriesApp.Validators;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -21,14 +22,14 @@ namespace CountriesApp.Services
             auth = DependencyService.Get<IAuth>();
         }
 
-        public async Task<bool> SignInFirebase(string email, string password)
+        public async Task<FirebaseResponse> SignInFirebase(string email, string password)
         {
 
             return await auth.LoginUser(email, password);
         }
 
 
-        public async Task<bool> LoginUser(string email, string password)
+        public async Task<FirebaseResponse> LoginUser(string email, string password)
         {
             validator.ValidateCredentials(email, password);
             validator.ValidateEmail(email);
@@ -38,10 +39,17 @@ namespace CountriesApp.Services
             if (email != Resources.Resources.HardCodedEmail || password != Resources.Resources.HardCodedPass)
             {
                 message.ShowMessage(Resources.Resources.Error, Resources.Resources.Errorhardcoded);
-                return false;
+                return new FirebaseResponse()
+                {
+                    Message = Resources.Resources.AuthenticationFailed,
+                    IsSuccessfull = false
+                };
             }
 
-            return true;
+            return new FirebaseResponse()
+            {
+                IsSuccessfull = true
+            };
         }
 
         public bool IsUserSign()

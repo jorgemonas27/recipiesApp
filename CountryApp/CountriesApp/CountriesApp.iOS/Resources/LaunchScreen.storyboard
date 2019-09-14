@@ -16,8 +16,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="23" image="Images">
-                                <rect key="frame" x="166" y="276" width="83" height="79"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="23" image="Images" ambiguous="YES">
+                                <rect key="frame" x="7" y="185" width="400" height="445"/>
                                 <rect key="contentStretch" x="0.0" y="0.0" width="0.0" height="0.0"/>
                             </imageView>
                         </subviews>
@@ -33,7 +33,4 @@
             <point key="canvasLocation" x="349" y="339"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="Images" width="1280" height="1920"/>
-    </resources>
 </document>

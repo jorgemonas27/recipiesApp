@@ -100,7 +100,8 @@ namespace CountriesApp.ViewModels
         {
             IsEnabled = false;
             IsRunning = true;
-            if (await login.LoginUser(Email, Password))
+            var response = await login.LoginUser(Email, Password);
+            if (response.IsSuccessfull)
             {
                 IsEnabled = true;
                 IsRunning = false;
@@ -140,6 +141,7 @@ namespace CountriesApp.ViewModels
                 this.IsEnabled = true;
             }
         }
+        
 
         private async void DummyLogout()
         {
@@ -159,17 +161,15 @@ namespace CountriesApp.ViewModels
         private async void LoginFirebase()
         {
             IsRunning = true;
-            if (await login.SignInFirebase(Email, Password))
-            {
-                MainViewModel.GetInstace().CountryView = new CountryViewModel();
-                await App.Current.MainPage.Navigation.PushAsync(new CountriesPage(), true);
-            }
-            else
+            var response = await login.SignInFirebase(Email, Password);
+            if (!response.IsSuccessfull)
             {
                 IsRunning = false;
-                message.ShowMessage(Resources.Resources.Error, Resources.Resources.AuthenticationFailed, Resources.Resources.OkMessage);
+                message.ShowMessage(Resources.Resources.Error, response.Message, Resources.Resources.OkMessage);
                 return;
             }
+            MainViewModel.GetInstace().CountryView = new CountryViewModel();
+            await App.Current.MainPage.Navigation.PushAsync(new CountriesPage(), true);
             IsRunning = false;
         }
 

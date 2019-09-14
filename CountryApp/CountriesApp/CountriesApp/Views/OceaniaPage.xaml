@@ -5,21 +5,25 @@
              Title="OCE"
              Icon="australia.png"
              xmlns:local ="clr-namespace:EventToCommandBehavior"
+             xmlns:custom ="clr-namespace:CountriesApp; assembly=CountriesApp"
              BindingContext="{Binding Main, Source={StaticResource Locator}}">
 
     <ContentPage.Content>
-            <StackLayout BindingContext="{Binding OceaniaView}">
-                <SearchBar 
-                    SearchCommand="{Binding SearchCommand}" 
-                    Text="{Binding KeySearch, Mode=TwoWay}" 
-                    Margin="0,20,0,0"
-                    Placeholder="Search for a country!"/>
-                <ActivityIndicator IsRunning="{Binding IsRunning}" IsVisible="{Binding IsRunning}"></ActivityIndicator>
-                <StackLayout HorizontalOptions="Center" Padding="10" Spacing="10">
+        <StackLayout BindingContext="{Binding OceaniaView}" Margin="10" Spacing="10">
+            <custom:MySearchBar 
+                SearchCommand="{Binding SearchCommand}"
+                Text="{Binding KeySearch, Mode=TwoWay}" 
+                Margin="0,20,0,0" 
+                FontSize="15"
+                Placeholder="Search for a country!" 
+                HorizontalOptions="Fill"
+                VerticalOptions="FillAndExpand"/>
+            <ActivityIndicator IsRunning="{Binding IsRunning}" IsVisible="{Binding IsRunning}"></ActivityIndicator>
+            <StackLayout HorizontalOptions="Center" Padding="10" Spacing="10">
                     <ListView HasUnevenRows="True" 
                               ItemTemplate="{StaticResource templateList}" 
                               ItemsSource="{Binding Region}"
-                              IsPullToRefreshEnabled="True"
+                              IsPullToRefreshEnabled="False"
                               IsRefreshing="{Binding IsRunning, Mode=TwoWay}"
                               RefreshCommand="{Binding RefreshCommand}"
                               VerticalOptions="FillAndExpand">
