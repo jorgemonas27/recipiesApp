@@ -11,45 +11,39 @@ namespace CountriesApp.Services
     public class Login : IAuth
     {
         private MessageManager message;
-        private ValidateLoginFields validator;
+       
         private const int Time = 500;
         IAuth auth;
 
         public Login()
         {
             message = new MessageManager();
-            validator = new ValidateLoginFields();
             auth = DependencyService.Get<IAuth>();
         }
 
-        public async Task<FirebaseResponse> SignInFirebase(string email, string password)
+        public Login(IAuth mock)
         {
+            auth = mock;
+            message = new MessageManager();
+            auth = DependencyService.Get<IAuth>();
+        }
 
+        public async Task<bool> SignInFirebase(string email, string password)
+        {
             return await auth.LoginUser(email, password);
         }
 
 
-        public async Task<FirebaseResponse> LoginUser(string email, string password)
+        public async Task<bool> LoginUser(string email, string password)
         {
-            validator.ValidateCredentials(email, password);
-            validator.ValidateEmail(email);
-
             await Task.Delay(Time);
 
             if (email != Resources.Resources.HardCodedEmail || password != Resources.Resources.HardCodedPass)
             {
-                message.ShowMessage(Resources.Resources.Error, Resources.Resources.Errorhardcoded);
-                return new FirebaseResponse()
-                {
-                    Message = Resources.Resources.AuthenticationFailed,
-                    IsSuccessfull = false
-                };
+                return false;
             }
 
-            return new FirebaseResponse()
-            {
-                IsSuccessfull = true
-            };
+            return true;
         }
 
         public bool IsUserSign()

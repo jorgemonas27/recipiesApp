@@ -7,8 +7,8 @@ using System.Text;
 
 namespace CountriesApp.Services
 {
-    interface ISearchCountry<T> where T: class 
+    public interface ISearchCountry
     {
-        ObservableCollection<T> SearchCountries(string keySearch, List<T> cacheList, ObservableCollection<T> regionCollection);
+        ObservableCollection<Country> SearchCountries(string keySearch, List<Country> cacheList, ObservableCollection<Country> regionCollection);
     }
 }
