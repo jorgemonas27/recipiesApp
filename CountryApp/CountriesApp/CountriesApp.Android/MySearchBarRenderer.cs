@@ -44,13 +44,18 @@ namespace CountriesApp.Droid
             SearchView searchView = (base.Control as SearchView);
             searchView.SetInputType(InputTypes.ClassText | InputTypes.TextVariationNormal);
 
-            //change icon
+            //change icon search
             searchView.SetIconifiedByDefault(false);
             int searchIconId = Context.Resources.GetIdentifier("android:id/search_mag_icon", null, null);
             var icon = searchView.FindViewById(searchIconId);
             icon.SetBackgroundColor(Android.Graphics.Color.White);
             (icon as ImageView).SetImageResource(Resource.Drawable.ios23);
 
+            //change icon close
+            int searchViewCloseButtonId = Control.Resources.GetIdentifier("android:id/search_close_btn", null, null);
+            var closeIcon = searchView.FindViewById(searchViewCloseButtonId);
+            (closeIcon as ImageView).SetImageResource(Resource.Drawable.close);
+           
             // Access search textview within control
             int textViewId = searchView.Context.Resources.GetIdentifier("android:id/search_src_text", null, null);
             EditText textView = (searchView.FindViewById(textViewId) as EditText);
@@ -59,16 +64,6 @@ namespace CountriesApp.Droid
             textView.TextAlignment = Android.Views.TextAlignment.TextStart;
 
             //add borders to the search bar
-
-
-
-            // Customize frame color
-            //int frameId = searchView.Context.Resources.GetIdentifier("android:id/search_plate", null, null);
-            //Android.Views.View frameView = (searchView.FindViewById(frameId) as Android.Views.View);
-            ////frameView.SetBackgroundColor(Android.Graphics.Color.Rgb(255, 255, 255));
-
-            //add borders to the search bar
-
             if (textView != null)
             {
                 var shape = new ShapeDrawable(new RectShape());
@@ -83,9 +78,6 @@ namespace CountriesApp.Droid
             gradient.SetStroke((int)this.Context.ToPixels(1.0f), Android.Graphics.Color.Rgb(169, 169, 169));
 
             this.Control.SetBackground(gradient);
-
-
-
         }
     }
 }

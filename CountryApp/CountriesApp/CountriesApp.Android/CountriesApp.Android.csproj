@@ -137,9 +137,6 @@
     <Folder Include="Resources\drawable-xxxhdpi\" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\logoCountries.png" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\CountriesApp\CountriesApp.csproj">
       <Project>{8064a190-32b5-4f70-977f-9dfe216ce527}</Project>
       <Name>CountriesApp</Name>
@@ -185,9 +182,6 @@
     <AndroidResource Include="Resources\drawable\americas.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\mapsLogo.png" />
-  </ItemGroup>
-  <ItemGroup>
     <AndroidResource Include="Resources\drawable\iosSearch.png" />
   </ItemGroup>
   <ItemGroup>
@@ -204,6 +198,12 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\ios23.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\close.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\mapsLogo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>
