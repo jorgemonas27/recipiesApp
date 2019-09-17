@@ -9,24 +9,28 @@
              BindingContext="{Binding Main, Source={StaticResource Locator}}">
 
     <ContentPage.Content>
-        <StackLayout BindingContext="{Binding EuropeView}" Margin="10" Spacing="10">
+        <StackLayout BindingContext="{Binding EuropeView}" 
+                     Margin="10"
+                     VerticalOptions="CenterAndExpand"
+                     HorizontalOptions="Center" 
+                     Spacing="10">
             <custom:MySearchBar 
                 SearchCommand="{Binding SearchCommand}"
                 Text="{Binding KeySearch, Mode=TwoWay}" 
                 Margin="0,20,0,0" 
                 FontSize="15"
                 Placeholder="Search for a country!" 
-                HorizontalOptions="Fill"
-                VerticalOptions="FillAndExpand"/>
+                HorizontalOptions="Start"
+                VerticalOptions="StartAndExpand"/>
             <ActivityIndicator IsRunning="{Binding IsRunning}" IsVisible="{Binding IsRunning}"></ActivityIndicator>
             <StackLayout HorizontalOptions="Center" Padding="10" Spacing="10">
                 <ListView HasUnevenRows="True" 
-                              ItemTemplate="{StaticResource templateList}" 
-                              ItemsSource="{Binding Region}"
-                              IsPullToRefreshEnabled="False"
-                              IsRefreshing="{Binding IsRunning, Mode=TwoWay}"
-                              RefreshCommand="{Binding RefreshCommand}"
-                              VerticalOptions="FillAndExpand">
+                          ItemTemplate="{StaticResource templateList}" 
+                          ItemsSource="{Binding Region}"
+                          IsPullToRefreshEnabled="False"
+                          RefreshCommand="{Binding RefreshCommand}"
+                          VerticalOptions="FillAndExpand"
+                          HeightRequest="550">
                     <ListView.Behaviors>
                         <local:EventToCommandBehavior EventName="ItemSelected" Command="{Binding SelectedItemCommand}" Converter="{StaticResource SelectedItemConverter}"/>
                     </ListView.Behaviors>

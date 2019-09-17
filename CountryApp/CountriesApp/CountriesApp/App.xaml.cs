@@ -23,14 +23,16 @@ namespace CountriesApp
             {
                 MainPage = new NavigationPage(new LoginPage())
                 {
-                    BarBackgroundColor = Color.FromHex("#084c9e")
+                    BarBackgroundColor = Color.FromHex("#084c9e"),
+                    BarTextColor = Color.White
                 };
             }
             else
             {
                 MainPage = new NavigationPage(new CountriesPage())
                 {
-                    BarBackgroundColor = Color.FromHex("#084c9e")
+                    BarBackgroundColor = Color.FromHex("#084c9e"),
+                    BarTextColor = Color.White
                 };
             }
         }

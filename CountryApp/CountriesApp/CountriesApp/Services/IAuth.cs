@@ -8,7 +8,7 @@ namespace CountriesApp.Services
 {
     public interface IAuth
     {
-        Task<FirebaseResponse> LoginUser(string email, string password);
+        Task<bool> LoginUser(string email, string password);
         bool IsUserSign();
         bool LogoutUser();
     }

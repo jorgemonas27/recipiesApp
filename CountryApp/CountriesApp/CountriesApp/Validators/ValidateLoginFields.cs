@@ -1,4 +1,5 @@
-﻿using CountriesApp.Services;
+﻿using CountriesApp.Models;
+using CountriesApp.Services;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -6,33 +7,36 @@ using System.Text.RegularExpressions;
 
 namespace CountriesApp.Validators
 {
-    public class ValidateLoginFields
+    public class ValidateLoginFields: IValidateFields
     {
-        MessageManager message;
-
         public ValidateLoginFields()
         {
-            message = new MessageManager();
+          
         }
 
-        public bool ValidateEmail(string email)
-        {
-            if (!this.IsValidEmail(email))
-            {
-                message.ShowMessage("Error", "The email is not a valid email please check it");
-                return false;
-            }
-            return true;
-        }
-
-        public bool ValidateCredentials(string email, string password)
+        public ResponseValidator ValidateCredentials(string email, string password)
         {
             if (this.IsEmptyField(email, password))
             {
-                message.ShowMessage("Error", "The email or password is empty");
-                return false;
+                return new ResponseValidator()
+                {
+                    IsValid = false,
+                    Message = Resources.Resources.EmailPasswordEmpty
+                };
             }
-            return true;
+
+            if (!this.IsValidEmail(email))
+            {
+                return new ResponseValidator()
+                {
+                    IsValid = false,
+                    Message = Resources.Resources.InvalidEmail
+                };
+            }
+            return new ResponseValidator()
+            {
+                IsValid = true
+            };
         }
 
         private bool IsValidEmail(string emailAdress)

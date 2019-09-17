@@ -130,7 +130,7 @@
     <comment>asia endpoint</comment>
   </data>
   <data name="AuthenticationFailed" xml:space="preserve">
-    <value>The email or password are incorrect. Try again!</value>
+    <value>The email or password are incorrect or the user doesnt exist. Try again!</value>
     <comment>credentials error</comment>
   </data>
   <data name="EmailPasswordEmpty" xml:space="preserve">

@@ -8,13 +8,25 @@ using System.Text;
 
 namespace CountriesApp.Services
 {
-    public class SearchCountry : ISearchCountry<Country>
+    public class SearchCountry : ISearchCountry
     {
+        private readonly ISearchCountry search;
+
+        public SearchCountry()
+        {
+
+        }
+
+        public SearchCountry(ISearchCountry toSearch)
+        {
+            search = toSearch;
+        }
+
         public ObservableCollection<Country> SearchCountries(string keySearch, List<Country> cacheList, ObservableCollection<Country> regionCollection)
         {
             if (string.IsNullOrEmpty(keySearch))
             {
-                regionCollection = new ObservableCollection<Country>(cacheList); //lista origi
+                regionCollection = new ObservableCollection<Country>(cacheList as List<Country>); //lista origi
                 return regionCollection;
             }
             else

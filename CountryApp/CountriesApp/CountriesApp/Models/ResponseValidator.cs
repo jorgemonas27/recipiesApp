@@ -4,9 +4,9 @@ using System.Text;
 
 namespace CountriesApp.Models
 {
-    public class FirebaseResponse
+    public class ResponseValidator
     {
-        public bool IsSuccessfull { get; set; }
+        public bool IsValid { get; set; }
         public string Message { get; set; }
     }
 }

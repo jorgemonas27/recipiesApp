@@ -88,7 +88,7 @@ namespace CountriesApp.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The email or password are incorrect. Try again!.
+        ///   Looks up a localized string similar to The email or password are incorrect or the user doesnt exist. Try again!.
         /// </summary>
         internal static string AuthenticationFailed {
             get {

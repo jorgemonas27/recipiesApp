@@ -1,4 +1,5 @@
 ﻿using CountriesApp.Services;
+using CountriesApp.Validators;
 using CountriesApp.Views;
 using GalaSoft.MvvmLight.Command;
 using System.Windows.Input;
@@ -12,7 +13,7 @@ namespace CountriesApp.ViewModels
         {
             get
             {
-                return new RelayCommand(LoginFirebase);
+                return new RelayCommand(Login);
             }
         }
 
@@ -40,8 +41,7 @@ namespace CountriesApp.ViewModels
             get { return email; }
             set
             {
-                UserSettings.Username = value;
-                email = UserSettings.Username;
+                email = value;
                 SetValue(ref email, value);
             }
         }
@@ -53,8 +53,7 @@ namespace CountriesApp.ViewModels
             get { return password; }
             set
             {
-                UserSettings.Password = value;
-                password = UserSettings.Password;
+                password = value;
                 SetValue(ref password, value);
             }
         }
@@ -82,39 +81,6 @@ namespace CountriesApp.ViewModels
             }
         }
 
-        #endregion
-
-        #region Ctor
-        public LoginViewModel()
-        {
-            login = new Login();
-            IsEnabled = true;
-            IsRunning = false;
-            message = new MessageManager();
-        }
-        #endregion
-
-
-        #region Methods
-        private async void Login()
-        {
-            IsEnabled = false;
-            IsRunning = true;
-            var response = await login.LoginUser(Email, Password);
-            if (response.IsSuccessfull)
-            {
-                IsEnabled = true;
-                IsRunning = false;
-
-                await App.Current.MainPage.Navigation.PushAsync(new CountriesPage());
-            }
-            else
-            {
-                IsEnabled = true;
-                IsRunning = false;
-            }
-        }
-
         public string AppSettingUser
         {
             get
@@ -130,7 +96,56 @@ namespace CountriesApp.ViewModels
                 return UserSettings.Password;
             }
         }
-        
+
+        private ValidateLoginFields validator;
+
+        #endregion
+
+        #region Ctor
+        public LoginViewModel()
+        {
+            login = new Login();
+            IsEnabled = true;
+            IsRunning = false;
+            message = new MessageManager();
+            validator = new ValidateLoginFields();
+        }
+        #endregion
+
+
+        #region Methods
+        private async void Login()
+        {
+            IsEnabled = false;
+            IsRunning = true;
+            if (!validator.ValidateCredentials(Email, Password).IsValid)
+            {
+                IsEnabled = true;
+                IsRunning = false;
+                message.ShowMessage(Resources.Resources.Error, validator.ValidateCredentials(Email, Password).Message);
+                return;
+            }
+
+            var response = await login.LoginUser(Email, Password);
+            if (!response)
+            {
+                IsEnabled = true;
+                IsRunning = false;
+                message.ShowMessage(Resources.Resources.Error, Resources.Resources.AuthenticationFailed);
+                return;
+            }
+            SaveUserSettings();
+            await App.Current.MainPage.Navigation.PushAsync(new CountriesPage());
+            IsEnabled = true;
+            IsRunning = false;
+        }
+
+        private void SaveUserSettings()
+        {
+            UserSettings.Username = this.Email;
+            UserSettings.Password = this.Password;
+        }
+
         private async void LogoutFirebase()
         {
             if (login.LogoutUser())
@@ -141,7 +156,6 @@ namespace CountriesApp.ViewModels
                 this.IsEnabled = true;
             }
         }
-        
 
         private async void DummyLogout()
         {
@@ -161,11 +175,18 @@ namespace CountriesApp.ViewModels
         private async void LoginFirebase()
         {
             IsRunning = true;
+            if (!validator.ValidateCredentials(Email, Password).IsValid)
+            {
+                IsEnabled = true;
+                IsRunning = false;
+                message.ShowMessage(Resources.Resources.Error, validator.ValidateCredentials(Email, Password).Message);
+                return;
+            }
             var response = await login.SignInFirebase(Email, Password);
-            if (!response.IsSuccessfull)
+            if (!response)
             {
                 IsRunning = false;
-                message.ShowMessage(Resources.Resources.Error, response.Message, Resources.Resources.OkMessage);
+                message.ShowMessage(Resources.Resources.Error, Resources.Resources.AuthenticationFailed, Resources.Resources.OkMessage);
                 return;
             }
             MainViewModel.GetInstace().CountryView = new CountryViewModel();

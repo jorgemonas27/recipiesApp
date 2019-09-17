@@ -11,6 +11,12 @@
              BindingContext="{Binding Main, Source={StaticResource Locator}}"
              xmlns:viewModel="clr-namespace:CountriesApp.ViewModels">
 
+    <TabbedPage.BarTextColor>
+        <OnPlatform x:TypeArguments="Color">
+            <On Platform="iOS" Value="White"/>
+        </OnPlatform>
+    </TabbedPage.BarTextColor>
+
     <TabbedPage.ToolbarItems >
         <ToolbarItem Name="iconexample" Icon="ic_shortcut_settings.png" Command="{Binding SettingsCommand}" Priority="0" Order="Primary"></ToolbarItem>
     </TabbedPage.ToolbarItems>
