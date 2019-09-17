@@ -20,22 +20,16 @@ namespace CountriesApp.Droid
 {
     public class AuthDroid : IAuth
     {
-        public async Task<FirebaseResponse> LoginUser(string email, string password)
+        public async Task<bool> LoginUser(string email, string password)
         {
             try
             {
                 await Firebase.Auth.FirebaseAuth.GetInstance(MainActivity.app).SignInWithEmailAndPasswordAsync(email, password);
-                return new FirebaseResponse()
-                {
-                    IsSuccessfull = true
-                };
+                return true;
             }
             catch (Exception e)
             {
-                return new FirebaseResponse()
-                {
-                    IsSuccessfull = true
-                };
+                return false;
             }
         }
 

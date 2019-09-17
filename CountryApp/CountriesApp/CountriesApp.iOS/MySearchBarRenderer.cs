@@ -39,37 +39,19 @@ namespace CountriesApp.iOS
                 {
                     this.Control.TextChanged += (s, ea) =>
                     {
-                        this.Control.ShowsCancelButton = true;
-                        this.Control.ShowsBookmarkButton = false;
-                        SetCancelButtonText();
+                        this.Control.ShowsCancelButton = false;
                     };
 
                     this.Control.OnEditingStarted += (s, ea) => //when control receives focus
                     {
-                        this.Control.ShowsCancelButton = true;
-                        this.Control.ShowsSearchResultsButton = false;
-
-                        SetCancelButtonText();
+                        this.Control.ShowsCancelButton = false;
                     };
 
                     this.Control.OnEditingStopped += (s, ea) => //when control looses focus 
                     {
                         this.Control.ShowsCancelButton = false;
-                        this.Control.ShowsBookmarkButton = false;
-                        this.Control.ShowsSearchResultsButton = false;
-
                     };
                 }
-            }
-
-        }
-
-        private void SetCancelButtonText()
-        {
-            var cancelButton = Control.Descendants().OfType<UIButton>().FirstOrDefault();
-            if (cancelButton != null)
-            {
-                cancelButton.SetTitle("X", UIControlState.Normal);
             }
         }
     }
