@@ -27,7 +27,7 @@
                           ItemTemplate="{StaticResource templateList}" 
                           ItemsSource="{Binding Region}"
                           IsPullToRefreshEnabled="True"
-                          IsRefreshing="{Binding IsRunning}"
+                          IsRefreshing="{Binding IsRefreshing}"
                           RefreshCommand="{Binding RefreshCommand}"
                           VerticalOptions="FillAndExpand"
                           HeightRequest="550">

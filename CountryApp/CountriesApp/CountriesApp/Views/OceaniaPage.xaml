@@ -29,7 +29,7 @@
                           RefreshCommand="{Binding RefreshCommand}"
                           VerticalOptions="FillAndExpand"
                           IsPullToRefreshEnabled="True"
-                          IsRefreshing="{Binding IsRunning}"
+                          IsRefreshing="{Binding IsRefreshing}"
                           HeightRequest="550">
                     <ListView.Behaviors>
                         <local:EventToCommandBehavior EventName="ItemSelected" Command="{Binding SelectedItemCommand}" Converter="{StaticResource SelectedItemConverter}"/>

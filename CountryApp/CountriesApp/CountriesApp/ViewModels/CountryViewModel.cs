@@ -92,50 +92,37 @@ namespace CountriesApp.ViewModels
 
         public Country CountrySelected { get; set; }
         private NavigationService navigator;
-        private ConnectionChecker connection;
         private MessageManager message;
 
-        public static CountryViewModel Instance { get; set; }
         #endregion
 
         #region ctor
         public CountryViewModel()
         {
-            Instance = this;
             loadCountry = new LoadCountry();
             searchCountry = new SearchCountry();
             navigator = new NavigationService();
             message = new MessageManager();
             CountrySelected = null;
-            GetCountries();
         }
         #endregion
 
         #region Methods
-
-        public static CountryViewModel GetInstance()
-        {
-            if (Instance == null)
-            {
-                return new CountryViewModel();
-            }
-            return Instance;
-        }
-
-        private async void GetCountries()
+        
+        public async void GetCountries()
         {
             try
             {
-                IsRunning = true;
+                IsRefreshing = false;
                 this.regionList = await loadCountry.LoadCountries(Url);
                 var sortedList = regionList.OrderBy(country => country.Name).ToList();
                 Region = new ObservableCollection<Country>(sortedList);
-                IsRunning = false;
+
             }
             catch (Exception ex)
             {
-
-                throw new ArgumentException(ex.Message);
+                IsRefreshing = false;
+                message.ShowMessage(Resources.Resources.Error, ex.Message);
             }
             
         }

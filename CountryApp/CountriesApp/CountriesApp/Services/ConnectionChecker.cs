@@ -13,7 +13,6 @@ namespace CountriesApp.Services
         {
             if(!CrossConnectivity.Current.IsConnected)
             {
-                await Task.Delay(2000);
                 return new ResponseValidator()
                 {
                     IsValid = false,
@@ -24,7 +23,6 @@ namespace CountriesApp.Services
             var isReacheable = await CrossConnectivity.Current.IsRemoteReachable(Resources.Resources.Google);
             if (!isReacheable)
             {
-                await Task.Delay(2000);
                 return new ResponseValidator()
                 {
                     IsValid = false,

@@ -37,6 +37,12 @@ namespace CountriesApp
             }
             else
             {
+                MainViewModel.GetInstace().AfricaView = new AfricaViewModel();
+                MainViewModel.GetInstace().AsiaView = new AsiaViewModel();
+                MainViewModel.GetInstace().EuropeView = new EuropeViewModel();
+                MainViewModel.GetInstace().AmericasView = new AmericasViewModel();
+                MainViewModel.GetInstace().OceaniaView = new OceaniaViewModel();
+
                 MainPage = new NavigationPage(new CountriesPage())
                 {
                     BarBackgroundColor = Color.FromHex("#084c9e"),

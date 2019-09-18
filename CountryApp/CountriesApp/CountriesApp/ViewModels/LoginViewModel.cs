@@ -137,13 +137,23 @@ namespace CountriesApp.ViewModels
                 IsEnabled = true;
                 IsRunning = false;
                 message.ShowMessage(Resources.Resources.Error, Resources.Resources.AuthenticationFailed);
+                Password = string.Empty;
                 return;
             }
-
             SaveUserSettings();
+            InitializeCountriesModels();
             navigation.NavigatePage(Resources.Resources.Country);
             IsEnabled = true;
             IsRunning = false;
+        }
+
+        private void InitializeCountriesModels()
+        {
+            MainViewModel.GetInstace().AfricaView = new AfricaViewModel();
+            MainViewModel.GetInstace().AsiaView = new AsiaViewModel();
+            MainViewModel.GetInstace().EuropeView = new EuropeViewModel();
+            MainViewModel.GetInstace().AmericasView = new AmericasViewModel();
+            MainViewModel.GetInstace().OceaniaView = new OceaniaViewModel();
         }
 
         private void SaveUserSettings()
@@ -191,18 +201,22 @@ namespace CountriesApp.ViewModels
         private async void LoginFirebase()
         {
             var connected = await connection.CheckConnection();
+           
             switch (Device.RuntimePlatform)
             {
                 case Device.iOS:
                     this.Login();
                     break;
                 case Device.Android:
+                    IsEnabled = false;
+                    IsRunning = true;
                     if (!connected.IsValid)
                     {
+                        IsEnabled = true;
+                        IsRunning = false;
                         message.ShowMessage(Resources.Resources.Error, connected.Message);
                         return;
                     }
-                    IsRunning = true;
                     if (!validator.ValidateCredentials(Email, Password).IsValid)
                     {
                         IsEnabled = true;
@@ -213,11 +227,14 @@ namespace CountriesApp.ViewModels
                     var response = await login.SignInFirebase(Email, Password);
                     if (!response)
                     {
+                        IsEnabled = true;
                         IsRunning = false;
                         message.ShowMessage(Resources.Resources.Error, Resources.Resources.AuthenticationFailed, Resources.Resources.OkMessage);
+                        Password = string.Empty;
                         return;
                     }
                     SaveUserSettings();
+                    InitializeCountriesModels();
                     navigation.NavigatePage(Resources.Resources.Country);
                     break;
             }

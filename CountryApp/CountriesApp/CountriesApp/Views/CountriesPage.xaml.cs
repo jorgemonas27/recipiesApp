@@ -12,8 +12,6 @@ namespace CountriesApp.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class CountriesPage : TabbedPage
     {
-        private CountryViewModel countryViewModel;
-
         public CountriesPage()
         {
             InitializeComponent();
