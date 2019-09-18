@@ -1,4 +1,5 @@
 ﻿using CountriesApp.Services;
+using CountriesApp.ViewModels;
 using CountriesApp.Views;
 using System;
 using Xamarin.Forms;
@@ -11,17 +12,24 @@ namespace CountriesApp
     {
         public static NavigationPage Navigator { get; internal set; }
         public string AuthToken { get; set; }
+        private ConnectionChecker connection;
+        private MessageManager message;
 
         public App()
         {
             InitializeComponent();
+            connection = new ConnectionChecker();
+            message = new MessageManager();
         }
 
         protected override void OnStart()
         {
+           
             if (string.IsNullOrEmpty(UserSettings.Username) && string.IsNullOrEmpty(UserSettings.Password))
             {
-                MainPage = new NavigationPage(new LoginPage())
+                var loginPage = new LoginPage();
+                NavigationPage.SetHasNavigationBar(loginPage, false);
+                MainPage = new NavigationPage(loginPage)
                 {
                     BarBackgroundColor = Color.FromHex("#084c9e"),
                     BarTextColor = Color.White

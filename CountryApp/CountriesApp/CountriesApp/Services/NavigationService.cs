@@ -1,25 +1,38 @@
-﻿using CountriesApp.Views;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CountriesApp.Services
+﻿namespace CountriesApp.Services
 {
-    public static class NavigationService
+    using CountriesApp.Views;
+    using System.Threading.Tasks;
+    using Xamarin.Forms;
+
+    public class NavigationService
     {
-        public async static void NavigatePage(string page)
+        public async void NavigatePage(string page)
         {
             switch (page)
             {
                 case "CountriesPage":
-                    await App.Navigator.PushAsync(new CountriesPage());
+                    await Navigate(new CountriesPage());
                     break;
                 case "DetailsCountry":
-                    await App.Navigator.PushAsync(new CountryDetailPage());
+                    await App.Current.MainPage.Navigation.PushAsync(new CountryDetailPage(), true);
+                    break;
+                case "LoginPage":
+                    await Navigate(new LoginPage());
                     break;
                 default:
                     break;
             }
+        }
+
+        private static async Task Navigate<T>(T page) where T : Page
+        {
+            if (typeof(T) == typeof(LoginPage))
+            {
+                NavigationPage.SetHasNavigationBar(page, false);
+            }
+            NavigationPage.SetHasBackButton(page, false);
+            NavigationPage.SetBackButtonTitle(page, "Back");
+            await App.Current.MainPage.Navigation.PushAsync(page, true);
         }
     }
 }

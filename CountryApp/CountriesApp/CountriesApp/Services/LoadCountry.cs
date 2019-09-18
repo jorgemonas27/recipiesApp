@@ -28,11 +28,11 @@
         #endregion
 
         #region Methods
-        public async Task<List<Country>> LoadCountries(string baseURL)
+        public async Task<List<Country>> LoadCountries(string url)
         {
             try
             {
-                var response = await service.GetData(baseURL);
+                var response = await service.GetData(Resources.Resources.baseRequest, Resources.Resources.prefix, url);
                 if (!response.IsSuccess)
                 {
                     message.ShowMessage(Resources.Resources.Error, response.Message, Resources.Resources.OkMessage);

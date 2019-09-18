@@ -20,13 +20,13 @@
                 Margin="0,20,0,0" 
                 FontSize="15"
                 Placeholder="Search for a country!" 
-                HorizontalOptions="Start"
-                VerticalOptions="StartAndExpand"/>
-            <ActivityIndicator IsRunning="{Binding IsRunning}" IsVisible="{Binding IsRunning}"></ActivityIndicator>
+                HorizontalOptions="Center"
+                VerticalOptions="FillAndExpand"/>
             <StackLayout Padding="10" Spacing="10" VerticalOptions="FillAndExpand">
                 <ListView HasUnevenRows="True" 
                           ItemsSource="{Binding Region}"
-                          IsPullToRefreshEnabled="False"
+                          IsPullToRefreshEnabled="True"
+                          IsRefreshing="{Binding IsRunning}"
                           ItemTemplate="{StaticResource templateList}"
                           RefreshCommand="{Binding RefreshCommand}"
                           VerticalOptions="FillAndExpand"

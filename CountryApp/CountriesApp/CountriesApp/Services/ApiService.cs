@@ -10,10 +10,9 @@ namespace CountriesApp.Services
     public class ApiService:IService
     {
         public IService service;
-
+        
         public ApiService()
         {
-            
         }
 
         public ApiService(IService mockService)
@@ -21,13 +20,16 @@ namespace CountriesApp.Services
             service = mockService;
         }
 
-        public async Task<Response<List<Country>>> GetData(string baseUrl)
+        public async Task<Response<List<Country>>> GetData(string baseUrl, string prefix, string controller)
         {
             using (HttpClient client = new HttpClient())
             {
                 try
                 {
-                    var response = await client.GetAsync(baseUrl);
+                    client.BaseAddress = new Uri(baseUrl);
+                    var url = $"{prefix}{controller}";
+                    var response = await client.GetAsync(url);
+
                     var result = await response.Content.ReadAsStringAsync();
 
                     if (!response.IsSuccessStatusCode)
@@ -53,7 +55,7 @@ namespace CountriesApp.Services
                     return new Response<List<Country>>
                     {
                         IsSuccess = false,
-                        Message = e.Message
+                        Message = Resources.Resources.SomethingWentWrong
                     };
                 }
             }

@@ -8,6 +8,6 @@ namespace CountriesApp.Services
 {
     public interface IService
     {
-        Task<Response<List<Country>>> GetData(string baseUrl);
+        Task<Response<List<Country>>> GetData(string baseUrl, string prefix, string controller);
     }
 }

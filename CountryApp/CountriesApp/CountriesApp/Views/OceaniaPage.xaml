@@ -20,16 +20,16 @@
                 Margin="0,20,0,0" 
                 FontSize="15"
                 Placeholder="Search for a country!" 
-                HorizontalOptions="Start"
-                VerticalOptions="StartAndExpand"/>
-            <ActivityIndicator IsRunning="{Binding IsRunning}" IsVisible="{Binding IsRunning}"></ActivityIndicator>
+                HorizontalOptions="Center"
+                VerticalOptions="FillAndExpand"/>
             <StackLayout HorizontalOptions="Center" Padding="10" Spacing="10">
                 <ListView HasUnevenRows="True" 
                           ItemTemplate="{StaticResource templateList}" 
                           ItemsSource="{Binding Region}"
-                          IsPullToRefreshEnabled="False"
                           RefreshCommand="{Binding RefreshCommand}"
                           VerticalOptions="FillAndExpand"
+                          IsPullToRefreshEnabled="True"
+                          IsRefreshing="{Binding IsRunning}"
                           HeightRequest="550">
                     <ListView.Behaviors>
                         <local:EventToCommandBehavior EventName="ItemSelected" Command="{Binding SelectedItemCommand}" Converter="{StaticResource SelectedItemConverter}"/>
