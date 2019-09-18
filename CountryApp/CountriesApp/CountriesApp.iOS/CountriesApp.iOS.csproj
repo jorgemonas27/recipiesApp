@@ -111,15 +111,34 @@
     <Compile Include="AppDelegate.cs" />
     <BundleResource Include="Entitlements.plist" />
     <BundleResource Include="GoogleService-Info.plist" />
-    <ImageAsset Include="Assets.xcassets\africa.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\americas.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\asia.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\australia.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\europe.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\ic_shortcut_settings.imageset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\LaunchImages.launchimage\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\mapsLogo.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\africa.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\americas.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\asia.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\australia.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\europe.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\ic_shortcut_settings.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\LaunchImages.launchimage\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\mapsLogo.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\Images.imageset\Contents.json" />
     <None Include="Info.plist" />
     <Compile Include="MySearchBarRenderer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -254,112 +273,190 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ImageAsset Include="Assets.xcassets\africa.imageset\africa.png" />
+    <ImageAsset Include="Assets.xcassets\africa.imageset\africa.png">
+      <Visible>false</Visible>
+    </ImageAsset>
   </ItemGroup>
   <ItemGroup>
-    <ImageAsset Include="Assets.xcassets\americas.imageset\americas.png" />
+    <ImageAsset Include="Assets.xcassets\americas.imageset\americas.png">
+      <Visible>false</Visible>
+    </ImageAsset>
   </ItemGroup>
   <ItemGroup>
-    <ImageAsset Include="Assets.xcassets\americas.imageset\asia.png" />
+    <ImageAsset Include="Assets.xcassets\americas.imageset\asia.png">
+      <Visible>false</Visible>
+    </ImageAsset>
   </ItemGroup>
   <ItemGroup>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon1024.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon1024.png">
+      <Visible>false</Visible>
+    </ImageAsset>
   </ItemGroup>
   <ItemGroup>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon120.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon120.png">
+      <Visible>false</Visible>
+    </ImageAsset>
   </ItemGroup>
   <ItemGroup>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon152.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon152.png">
+      <Visible>false</Visible>
+    </ImageAsset>
   </ItemGroup>
   <ItemGroup>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon167.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon167.png">
+      <Visible>false</Visible>
+    </ImageAsset>
   </ItemGroup>
   <ItemGroup>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon180.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon180.png">
+      <Visible>false</Visible>
+    </ImageAsset>
   </ItemGroup>
   <ItemGroup>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon20.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon20.png">
+      <Visible>false</Visible>
+    </ImageAsset>
   </ItemGroup>
   <ItemGroup>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon29.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon29.png">
+      <Visible>false</Visible>
+    </ImageAsset>
   </ItemGroup>
   <ItemGroup>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon40.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon40.png">
+      <Visible>false</Visible>
+    </ImageAsset>
   </ItemGroup>
   <ItemGroup>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon58.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon58.png">
+      <Visible>false</Visible>
+    </ImageAsset>
   </ItemGroup>
   <ItemGroup>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon60.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon60.png">
+      <Visible>false</Visible>
+    </ImageAsset>
   </ItemGroup>
   <ItemGroup>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon76.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon76.png">
+      <Visible>false</Visible>
+    </ImageAsset>
   </ItemGroup>
   <ItemGroup>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon80.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon80.png">
+      <Visible>false</Visible>
+    </ImageAsset>
   </ItemGroup>
   <ItemGroup>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon87.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Icon87.png">
+      <Visible>false</Visible>
+    </ImageAsset>
   </ItemGroup>
   <ItemGroup>
-    <ImageAsset Include="Assets.xcassets\asia.imageset\asia.png" />
+    <ImageAsset Include="Assets.xcassets\asia.imageset\asia.png">
+      <Visible>false</Visible>
+    </ImageAsset>
   </ItemGroup>
   <ItemGroup>
-    <ImageAsset Include="Assets.xcassets\australia.imageset\australia.png" />
+    <ImageAsset Include="Assets.xcassets\australia.imageset\australia.png">
+      <Visible>false</Visible>
+    </ImageAsset>
   </ItemGroup>
   <ItemGroup>
-    <ImageAsset Include="Assets.xcassets\europe.imageset\africav2.png" />
+    <ImageAsset Include="Assets.xcassets\europe.imageset\africav2.png">
+      <Visible>false</Visible>
+    </ImageAsset>
   </ItemGroup>
   <ItemGroup>
-    <ImageAsset Include="Assets.xcassets\europe.imageset\africav21.png" />
+    <ImageAsset Include="Assets.xcassets\europe.imageset\africav21.png">
+      <Visible>false</Visible>
+    </ImageAsset>
   </ItemGroup>
   <ItemGroup>
-    <ImageAsset Include="Assets.xcassets\europe.imageset\africav22.png" />
+    <ImageAsset Include="Assets.xcassets\europe.imageset\africav22.png">
+      <Visible>false</Visible>
+    </ImageAsset>
   </ItemGroup>
   <ItemGroup>
-    <ImageAsset Include="Assets.xcassets\europe.imageset\africav23.png" />
+    <ImageAsset Include="Assets.xcassets\europe.imageset\africav23.png">
+      <Visible>false</Visible>
+    </ImageAsset>
   </ItemGroup>
   <ItemGroup>
-    <ImageAsset Include="Assets.xcassets\europe.imageset\europe.png" />
+    <ImageAsset Include="Assets.xcassets\europe.imageset\europe.png">
+      <Visible>false</Visible>
+    </ImageAsset>
   </ItemGroup>
   <ItemGroup>
-    <ImageAsset Include="Assets.xcassets\ic_shortcut_settings.imageset\ic_shortcut_settings.png" />
+    <ImageAsset Include="Assets.xcassets\ic_shortcut_settings.imageset\ic_shortcut_settings.png">
+      <Visible>false</Visible>
+    </ImageAsset>
   </ItemGroup>
   <ItemGroup>
-    <ImageAsset Include="Assets.xcassets\ic_shortcut_settings.imageset\ic_shortcut_settings1.png" />
+    <ImageAsset Include="Assets.xcassets\ic_shortcut_settings.imageset\ic_shortcut_settings1.png">
+      <Visible>false</Visible>
+    </ImageAsset>
   </ItemGroup>
   <ItemGroup>
-    <ImageAsset Include="Assets.xcassets\ic_shortcut_settings.imageset\ic_shortcut_settings2.png" />
+    <ImageAsset Include="Assets.xcassets\ic_shortcut_settings.imageset\ic_shortcut_settings2.png">
+      <Visible>false</Visible>
+    </ImageAsset>
   </ItemGroup>
   <ItemGroup>
-    <ImageAsset Include="Assets.xcassets\ic_shortcut_settings.imageset\ic_shortcut_settings3.png" />
+    <ImageAsset Include="Assets.xcassets\ic_shortcut_settings.imageset\ic_shortcut_settings3.png">
+      <Visible>false</Visible>
+    </ImageAsset>
   </ItemGroup>
   <ItemGroup>
-    <ImageAsset Include="Assets.xcassets\ic_shortcut_settings.imageset\ic_shortcut_settings4.png" />
+    <ImageAsset Include="Assets.xcassets\ic_shortcut_settings.imageset\ic_shortcut_settings4.png">
+      <Visible>false</Visible>
+    </ImageAsset>
   </ItemGroup>
   <ItemGroup>
-    <ImageAsset Include="Assets.xcassets\ic_shortcut_settings.imageset\ic_shortcut_settings5.png" />
+    <ImageAsset Include="Assets.xcassets\ic_shortcut_settings.imageset\ic_shortcut_settings5.png">
+      <Visible>false</Visible>
+    </ImageAsset>
   </ItemGroup>
   <ItemGroup>
-    <ImageAsset Include="Assets.xcassets\ic_shortcut_settings.imageset\icons8-ios-50.png" />
+    <ImageAsset Include="Assets.xcassets\ic_shortcut_settings.imageset\icons8-ios-50.png">
+      <Visible>false</Visible>
+    </ImageAsset>
   </ItemGroup>
   <ItemGroup>
-    <ImageAsset Include="Assets.xcassets\ic_shortcut_settings.imageset\output-onlinepngtools %281%29.png" />
+    <ImageAsset Include="Assets.xcassets\ic_shortcut_settings.imageset\output-onlinepngtools %281%29.png">
+      <Visible>false</Visible>
+    </ImageAsset>
   </ItemGroup>
   <ItemGroup>
-    <ImageAsset Include="Assets.xcassets\ic_shortcut_settings.imageset\output-onlinepngtools.png" />
+    <ImageAsset Include="Assets.xcassets\ic_shortcut_settings.imageset\output-onlinepngtools.png">
+      <Visible>false</Visible>
+    </ImageAsset>
   </ItemGroup>
   <ItemGroup>
-    <ImageAsset Include="Assets.xcassets\ic_shortcut_settings.imageset\settios.png" />
+    <ImageAsset Include="Assets.xcassets\ic_shortcut_settings.imageset\settios.png">
+      <Visible>false</Visible>
+    </ImageAsset>
   </ItemGroup>
   <ItemGroup>
-    <ImageAsset Include="Assets.xcassets\Images.imageset\ic_shortcut_settings.png" />
+    <ImageAsset Include="Assets.xcassets\Images.imageset\ic_shortcut_settings.png">
+      <Visible>false</Visible>
+    </ImageAsset>
   </ItemGroup>
   <ItemGroup>
-    <ImageAsset Include="Assets.xcassets\mapsLogo.imageset\mapsLogo.png" />
+    <ImageAsset Include="Assets.xcassets\mapsLogo.imageset\mapsLogo.png">
+      <Visible>false</Visible>
+    </ImageAsset>
   </ItemGroup>
   <ItemGroup>
-    <ImageAsset Include="Assets.xcassets\mapsLogo.imageset\MUNDO MAPAS mundito con rayas.png" />
+    <ImageAsset Include="Assets.xcassets\mapsLogo.imageset\MUNDO MAPAS mundito con rayas.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+  </ItemGroup>
+  <ItemGroup>
+    <ImageAsset Include="Assets.xcassets\africa.imageset\africa2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ImageAsset Include="Assets.xcassets\Images.imageset\MUNDO MAPAS mundito con rayas.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>
