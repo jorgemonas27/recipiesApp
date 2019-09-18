@@ -45,6 +45,7 @@ namespace CountriesApp.ViewModels
             }
         }
 
+       
         private bool isrunning;
 
         public bool IsRunning
@@ -56,6 +57,19 @@ namespace CountriesApp.ViewModels
                 SetValue(ref isrunning, value);
             }
         }
+
+        private bool isrefreshing;
+
+        public bool IsRefreshing
+        {
+            get { return isrefreshing; }
+            set
+            {
+                isrefreshing = value;
+                SetValue(ref isrefreshing, value);
+            }
+        }
+
 
         private string keySearch;
 
@@ -77,38 +91,64 @@ namespace CountriesApp.ViewModels
         private List<Country> regionList;
 
         public Country CountrySelected { get; set; }
+        private NavigationService navigator;
+        private ConnectionChecker connection;
+        private MessageManager message;
 
+        public static CountryViewModel Instance { get; set; }
         #endregion
 
         #region ctor
         public CountryViewModel()
         {
+            Instance = this;
             loadCountry = new LoadCountry();
             searchCountry = new SearchCountry();
+            navigator = new NavigationService();
+            message = new MessageManager();
             CountrySelected = null;
             GetCountries();
         }
         #endregion
 
         #region Methods
-        private async void GetCountries()
+
+        public static CountryViewModel GetInstance()
         {
-            IsRunning = true;
-            this.regionList = await loadCountry.LoadCountries(Url);
-            var sortedList = regionList.OrderBy(country => country.Name).ToList();
-            Region = new ObservableCollection<Country>(sortedList);
-            IsRunning = false;
+            if (Instance == null)
+            {
+                return new CountryViewModel();
+            }
+            return Instance;
         }
 
+        private async void GetCountries()
+        {
+            try
+            {
+                IsRunning = true;
+                this.regionList = await loadCountry.LoadCountries(Url);
+                var sortedList = regionList.OrderBy(country => country.Name).ToList();
+                Region = new ObservableCollection<Country>(sortedList);
+                IsRunning = false;
+            }
+            catch (Exception ex)
+            {
+
+                throw new ArgumentException(ex.Message);
+            }
+            
+        }
+        
         private void SearchCountry()
         {
             Region = searchCountry.SearchCountries(KeySearch, regionList, Region);
         }
 
-        private async void SelectedCountry(Country selectedCountry)
-        {
+        private void SelectedCountry(Country selectedCountry)
+        {   
             MainViewModel.GetInstace().CountryDetailView = new CountryDetailViewModel(selectedCountry);
-            await App.Current.MainPage.Navigation.PushAsync(new CountryDetailPage(), true);
+            navigator.NavigatePage(Resources.Resources.CountryDetail);
         }
         #endregion
     }

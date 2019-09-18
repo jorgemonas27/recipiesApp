@@ -1,4 +1,6 @@
-﻿namespace CountriesApp.ViewModels
+﻿using CountriesApp.Services;
+
+namespace CountriesApp.ViewModels
 {
     public class AfricaViewModel: CountryViewModel
     {

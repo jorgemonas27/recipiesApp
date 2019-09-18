@@ -7,6 +7,7 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 using Firebase;
+using Android.Content;
 
 namespace CountriesApp.Droid
 {
@@ -38,6 +39,14 @@ namespace CountriesApp.Droid
             if (app == null)
                 app = FirebaseApp.InitializeApp(this, options, "FirebaseSample");
 
+        }
+
+        public override void OnBackPressed()
+        {
+            base.OnBackPressed();
+            var intent = new Intent(this, typeof(MainActivity));
+            base.Finish();
+            System.Environment.Exit(0);
         }
     }
 }

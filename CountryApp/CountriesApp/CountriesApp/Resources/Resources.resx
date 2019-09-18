@@ -118,20 +118,32 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AfricaURL" xml:space="preserve">
-    <value>https://restcountries.eu/rest/v2/region/africa</value>
+    <value>/v2/region/africa</value>
     <comment>africa endpoint</comment>
   </data>
   <data name="AmericasURL" xml:space="preserve">
-    <value>https://restcountries.eu/rest/v2/region/americas</value>
+    <value>/v2/region/americas</value>
     <comment>americas endpoint</comment>
   </data>
   <data name="AsiaURL" xml:space="preserve">
-    <value>https://restcountries.eu/rest/v2/region/asia</value>
+    <value>/v2/region/asia</value>
     <comment>asia endpoint</comment>
   </data>
   <data name="AuthenticationFailed" xml:space="preserve">
     <value>The email or password are incorrect or the user doesnt exist. Try again!</value>
     <comment>credentials error</comment>
+  </data>
+  <data name="baseRequest" xml:space="preserve">
+    <value>https://restcountries.eu</value>
+  </data>
+  <data name="ConnectivityError" xml:space="preserve">
+    <value>Oh oh! You're disconnected, Please turn on your internet settings</value>
+  </data>
+  <data name="Country" xml:space="preserve">
+    <value>CountriesPage</value>
+  </data>
+  <data name="CountryDetail" xml:space="preserve">
+    <value>DetailsCountry</value>
   </data>
   <data name="EmailPasswordEmpty" xml:space="preserve">
     <value>The email or password is empty</value>
@@ -145,8 +157,11 @@
     <value>The credentials are not valid please check the email and password</value>
   </data>
   <data name="EuropeURL" xml:space="preserve">
-    <value>https://restcountries.eu/rest/v2/region/europe</value>
+    <value>/v2/region/europe</value>
     <comment>europe endpoint</comment>
+  </data>
+  <data name="Google" xml:space="preserve">
+    <value>www.google.com</value>
   </data>
   <data name="HardCodedEmail" xml:space="preserve">
     <value>jorgehmg17@gmail.com</value>
@@ -158,13 +173,25 @@
     <value>The email is not a valid email please check it</value>
     <comment>invalid email</comment>
   </data>
+  <data name="Login" xml:space="preserve">
+    <value>LoginPage</value>
+  </data>
+  <data name="NoGoodSignalError" xml:space="preserve">
+    <value>Please check your internet connection</value>
+  </data>
   <data name="OceaniaURL" xml:space="preserve">
-    <value>https://restcountries.eu/rest/v2/region/oceania</value>
+    <value>/v2/region/oceania</value>
     <comment>oceania endpoint</comment>
   </data>
   <data name="OkMessage" xml:space="preserve">
     <value>Ok</value>
     <comment>ok for the action</comment>
+  </data>
+  <data name="prefix" xml:space="preserve">
+    <value>/rest</value>
+  </data>
+  <data name="SomethingWentWrong" xml:space="preserve">
+    <value>Something went wrong. Please check your internet settings and try again later! </value>
   </data>
   <data name="Success" xml:space="preserve">
     <value>Success</value>

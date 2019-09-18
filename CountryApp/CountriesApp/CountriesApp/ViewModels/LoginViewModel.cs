@@ -3,6 +3,7 @@ using CountriesApp.Validators;
 using CountriesApp.Views;
 using GalaSoft.MvvmLight.Command;
 using System.Windows.Input;
+using Xamarin.Forms;
 
 namespace CountriesApp.ViewModels
 {
@@ -13,7 +14,7 @@ namespace CountriesApp.ViewModels
         {
             get
             {
-                return new RelayCommand(Login);
+                return new RelayCommand(LoginFirebase);
             }
         }
 
@@ -98,6 +99,8 @@ namespace CountriesApp.ViewModels
         }
 
         private ValidateLoginFields validator;
+        private NavigationService navigation;
+        private ConnectionChecker connection;
 
         #endregion
 
@@ -109,6 +112,8 @@ namespace CountriesApp.ViewModels
             IsRunning = false;
             message = new MessageManager();
             validator = new ValidateLoginFields();
+            navigation = new NavigationService();
+            connection = new ConnectionChecker();
         }
         #endregion
 
@@ -134,8 +139,9 @@ namespace CountriesApp.ViewModels
                 message.ShowMessage(Resources.Resources.Error, Resources.Resources.AuthenticationFailed);
                 return;
             }
+
             SaveUserSettings();
-            await App.Current.MainPage.Navigation.PushAsync(new CountriesPage());
+            navigation.NavigatePage(Resources.Resources.Country);
             IsEnabled = true;
             IsRunning = false;
         }
@@ -148,19 +154,29 @@ namespace CountriesApp.ViewModels
 
         private async void LogoutFirebase()
         {
+            var connected = await connection.CheckConnection();
+            if (!connected.IsValid)
+            {
+                message.ShowMessage(Resources.Resources.Error, connected.Message);
+                return;
+            }
             if (login.LogoutUser())
             {
+                this.IsRunning = true;
+                this.IsEnabled = false;
                 ClearCacheInformation();
-                await App.Current.MainPage.Navigation.PushAsync(new LoginPage(), true);
+                navigation.NavigatePage(Resources.Resources.Login);
                 this.IsRunning = false;
                 this.IsEnabled = true;
             }
         }
 
-        private async void DummyLogout()
+        private void DummyLogout()
         {
+            this.IsRunning = true;
+            this.IsEnabled = false;
             ClearCacheInformation();
-            await App.Current.MainPage.Navigation.PushAsync(new LoginPage(), true);
+            navigation.NavigatePage(Resources.Resources.Login);
             this.IsRunning = false;
             this.IsEnabled = true;
         }
@@ -174,24 +190,37 @@ namespace CountriesApp.ViewModels
 
         private async void LoginFirebase()
         {
-            IsRunning = true;
-            if (!validator.ValidateCredentials(Email, Password).IsValid)
+            var connected = await connection.CheckConnection();
+            switch (Device.RuntimePlatform)
             {
-                IsEnabled = true;
-                IsRunning = false;
-                message.ShowMessage(Resources.Resources.Error, validator.ValidateCredentials(Email, Password).Message);
-                return;
+                case Device.iOS:
+                    this.Login();
+                    break;
+                case Device.Android:
+                    if (!connected.IsValid)
+                    {
+                        message.ShowMessage(Resources.Resources.Error, connected.Message);
+                        return;
+                    }
+                    IsRunning = true;
+                    if (!validator.ValidateCredentials(Email, Password).IsValid)
+                    {
+                        IsEnabled = true;
+                        IsRunning = false;
+                        message.ShowMessage(Resources.Resources.Error, validator.ValidateCredentials(Email, Password).Message);
+                        return;
+                    }
+                    var response = await login.SignInFirebase(Email, Password);
+                    if (!response)
+                    {
+                        IsRunning = false;
+                        message.ShowMessage(Resources.Resources.Error, Resources.Resources.AuthenticationFailed, Resources.Resources.OkMessage);
+                        return;
+                    }
+                    SaveUserSettings();
+                    navigation.NavigatePage(Resources.Resources.Country);
+                    break;
             }
-            var response = await login.SignInFirebase(Email, Password);
-            if (!response)
-            {
-                IsRunning = false;
-                message.ShowMessage(Resources.Resources.Error, Resources.Resources.AuthenticationFailed, Resources.Resources.OkMessage);
-                return;
-            }
-            MainViewModel.GetInstace().CountryView = new CountryViewModel();
-            await App.Current.MainPage.Navigation.PushAsync(new CountriesPage(), true);
-            IsRunning = false;
         }
 
         #endregion

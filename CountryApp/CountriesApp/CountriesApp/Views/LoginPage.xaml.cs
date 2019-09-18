@@ -15,7 +15,6 @@ namespace CountriesApp.Views
 		public LoginPage ()
 		{
 			InitializeComponent ();
-            NavigationPage.SetHasNavigationBar(this, false);
         }
     }
 }

@@ -61,7 +61,7 @@ namespace CountriesApp.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to https://restcountries.eu/rest/v2/region/africa.
+        ///   Looks up a localized string similar to /v2/region/africa.
         /// </summary>
         internal static string AfricaURL {
             get {
@@ -70,7 +70,7 @@ namespace CountriesApp.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to https://restcountries.eu/rest/v2/region/americas.
+        ///   Looks up a localized string similar to /v2/region/americas.
         /// </summary>
         internal static string AmericasURL {
             get {
@@ -79,7 +79,7 @@ namespace CountriesApp.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to https://restcountries.eu/rest/v2/region/asia.
+        ///   Looks up a localized string similar to /v2/region/asia.
         /// </summary>
         internal static string AsiaURL {
             get {
@@ -93,6 +93,42 @@ namespace CountriesApp.Resources {
         internal static string AuthenticationFailed {
             get {
                 return ResourceManager.GetString("AuthenticationFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to https://restcountries.eu.
+        /// </summary>
+        internal static string baseRequest {
+            get {
+                return ResourceManager.GetString("baseRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Oh oh! You&apos;re disconnected, Please turn on your internet settings.
+        /// </summary>
+        internal static string ConnectivityError {
+            get {
+                return ResourceManager.GetString("ConnectivityError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CountriesPage.
+        /// </summary>
+        internal static string Country {
+            get {
+                return ResourceManager.GetString("Country", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to DetailsCountry.
+        /// </summary>
+        internal static string CountryDetail {
+            get {
+                return ResourceManager.GetString("CountryDetail", resourceCulture);
             }
         }
         
@@ -124,11 +160,20 @@ namespace CountriesApp.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to https://restcountries.eu/rest/v2/region/europe.
+        ///   Looks up a localized string similar to /v2/region/europe.
         /// </summary>
         internal static string EuropeURL {
             get {
                 return ResourceManager.GetString("EuropeURL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to www.google.com.
+        /// </summary>
+        internal static string Google {
+            get {
+                return ResourceManager.GetString("Google", resourceCulture);
             }
         }
         
@@ -160,7 +205,25 @@ namespace CountriesApp.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to https://restcountries.eu/rest/v2/region/oceania.
+        ///   Looks up a localized string similar to LoginPage.
+        /// </summary>
+        internal static string Login {
+            get {
+                return ResourceManager.GetString("Login", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please check your internet connection.
+        /// </summary>
+        internal static string NoGoodSignalError {
+            get {
+                return ResourceManager.GetString("NoGoodSignalError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /v2/region/oceania.
         /// </summary>
         internal static string OceaniaURL {
             get {
@@ -174,6 +237,24 @@ namespace CountriesApp.Resources {
         internal static string OkMessage {
             get {
                 return ResourceManager.GetString("OkMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /rest.
+        /// </summary>
+        internal static string prefix {
+            get {
+                return ResourceManager.GetString("prefix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Something went wrong. Please check your internet settings and try again later! .
+        /// </summary>
+        internal static string SomethingWentWrong {
+            get {
+                return ResourceManager.GetString("SomethingWentWrong", resourceCulture);
             }
         }
         

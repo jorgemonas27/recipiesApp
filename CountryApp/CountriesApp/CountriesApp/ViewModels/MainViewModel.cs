@@ -1,16 +1,13 @@
-﻿using CountriesApp.Models;
-using CountriesApp.Views;
-using GalaSoft.MvvmLight.Command;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows.Input;
-
-namespace CountriesApp.ViewModels
+﻿namespace CountriesApp.ViewModels
 {
+    using System.Windows.Input;
+    using CountriesApp.Views;
+    using GalaSoft.MvvmLight.Command;
+
     public class MainViewModel
     {
 
+        #region Commands
 
         public ICommand SettingsCommand
         {
@@ -20,19 +17,14 @@ namespace CountriesApp.ViewModels
             }
         }
 
-        private async void Settings()
-        {
-            await App.Current.MainPage.Navigation.PushAsync(new SettingsPage());
-        }
-
+        #endregion
 
         #region Props
 
+        public static MainViewModel Main { get; set; }
         public LoginViewModel LoginView { get; set; }
         public CountryViewModel CountryView { get; set; }
-        public static MainViewModel Main { get; set; }
         public CountryDetailViewModel CountryDetailView { get; set; }
-        //public CommunPage CommunView { get; set; }
         public AfricaViewModel AfricaView { get; set; }
         public AmericasViewModel AmericasView { get; set; }
         public AsiaViewModel AsiaView { get; set; }
@@ -41,11 +33,11 @@ namespace CountriesApp.ViewModels
 
         #endregion
 
-        #region ctor
+        #region Ctor
+
         public MainViewModel()
         {
             Main = this;
-            //CountryView = new CountryViewModel();
             LoginView = new LoginViewModel();
             AfricaView = new AfricaViewModel();
             AmericasView = new AmericasViewModel();
@@ -55,6 +47,13 @@ namespace CountriesApp.ViewModels
         }
         #endregion
 
+        #region Methods
+
+        private async void Settings()
+        {
+            await App.Current.MainPage.Navigation.PushAsync(new SettingsPage());
+        }
+
         public static MainViewModel GetInstace()
         {
             if (Main == null)
@@ -63,5 +62,8 @@ namespace CountriesApp.ViewModels
             }
             return Main;
         }
+
+        #endregion
+
     }
 }
