@@ -135,7 +135,7 @@ namespace CountriesTest
             var controller = "/v2/region/africa";
             var mockServices = new Mock<IService>();
             responseRegion.Result = responseAll.Result.Where(country => country.Region == "Africa").ToList();
-            mockServices.Setup(sp => sp.GetData(baseURL, prefix, controller)).ReturnsAsync(responseRegion); //q cuando invoken el metodo get data retorne response
+            mockServices.Setup(sp => sp.GetData(baseURL, prefix, controller)).ReturnsAsync(responseRegion);
             LoadCountry loadCountry = new LoadCountry(mockServices.Object);
             var actualResult = loadCountry.LoadCountries(controller);
             var expectedResult = 2;

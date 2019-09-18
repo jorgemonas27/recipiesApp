@@ -26,7 +26,7 @@ namespace CountriesApp.Services
         {
             if (string.IsNullOrEmpty(keySearch))
             {
-                regionCollection = new ObservableCollection<Country>(cacheList as List<Country>); //lista origi
+                regionCollection = new ObservableCollection<Country>(cacheList as List<Country>);
                 return regionCollection;
             }
             else

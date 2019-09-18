@@ -39,11 +39,6 @@
         {
             Main = this;
             LoginView = new LoginViewModel();
-            AfricaView = new AfricaViewModel();
-            AmericasView = new AmericasViewModel();
-            AsiaView = new AsiaViewModel();
-            EuropeView = new EuropeViewModel();
-            OceaniaView = new OceaniaViewModel();
         }
         #endregion
 

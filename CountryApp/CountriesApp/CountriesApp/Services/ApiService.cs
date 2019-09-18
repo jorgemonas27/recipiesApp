@@ -22,6 +22,7 @@ namespace CountriesApp.Services
 
         public async Task<Response<List<Country>>> GetData(string baseUrl, string prefix, string controller)
         {
+            string[] request = controller.Split('/');
             using (HttpClient client = new HttpClient())
             {
                 try
@@ -55,7 +56,7 @@ namespace CountriesApp.Services
                     return new Response<List<Country>>
                     {
                         IsSuccess = false,
-                        Message = Resources.Resources.SomethingWentWrong
+                        Message = $"{request[3]}: {Resources.Resources.SomethingWentWrong}"
                     };
                 }
             }

@@ -12,5 +12,10 @@ namespace CountriesApp.ViewModels
     public class EuropeViewModel: CountryViewModel
     {
         public override string Url => Resources.Resources.EuropeURL;
+        public EuropeViewModel()
+        {
+            IsRefreshing = true;
+            GetCountries();
+        }
     }
 }

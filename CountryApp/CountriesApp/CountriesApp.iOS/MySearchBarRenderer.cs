@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using CountriesApp;
+﻿using CountriesApp;
 using CountriesApp.iOS;
-using Foundation;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
@@ -34,7 +29,6 @@ namespace CountriesApp.iOS
                 searchbar.ShowsCancelButton = false;
                 searchbar.AutocapitalizationType = UITextAutocapitalizationType.None;
 
-                // Fixing Cancel button
                 if (e.NewElement != null)
                 {
                     this.Control.TextChanged += (s, ea) =>
@@ -42,12 +36,12 @@ namespace CountriesApp.iOS
                         this.Control.ShowsCancelButton = false;
                     };
 
-                    this.Control.OnEditingStarted += (s, ea) => //when control receives focus
+                    this.Control.OnEditingStarted += (s, ea) => 
                     {
                         this.Control.ShowsCancelButton = false;
                     };
 
-                    this.Control.OnEditingStopped += (s, ea) => //when control looses focus 
+                    this.Control.OnEditingStopped += (s, ea) =>
                     {
                         this.Control.ShowsCancelButton = false;
                     };

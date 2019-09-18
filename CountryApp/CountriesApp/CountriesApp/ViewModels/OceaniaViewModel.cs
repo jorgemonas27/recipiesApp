@@ -12,5 +12,10 @@ namespace CountriesApp.ViewModels
     public class OceaniaViewModel: CountryViewModel
     {
         public override string Url => Resources.Resources.OceaniaURL;
+        public OceaniaViewModel()
+        {
+            IsRefreshing = true;
+            GetCountries();
+        }
     }
 }
