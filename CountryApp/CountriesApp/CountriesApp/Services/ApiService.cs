@@ -56,7 +56,7 @@ namespace CountriesApp.Services
                     return new Response<List<Country>>
                     {
                         IsSuccess = false,
-                        Message = $"{request[3]}: {Resources.Resources.SomethingWentWrong}"
+                        Message = $"{Resources.Resources.SomethingWentWrong}"
                     };
                 }
             }

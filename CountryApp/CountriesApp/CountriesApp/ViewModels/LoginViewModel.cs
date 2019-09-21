@@ -141,7 +141,12 @@ namespace CountriesApp.ViewModels
                 return;
             }
             SaveUserSettings();
-            InitializeCountriesModels();
+            var list = App.LoadCountry.LoadCountries();
+            MainViewModel.GetInstace().AfricaView = new AfricaViewModel(list);
+            MainViewModel.GetInstace().AmericasView = new AmericasViewModel(list);
+            MainViewModel.GetInstace().AsiaView = new AsiaViewModel(list);
+            MainViewModel.GetInstace().EuropeView = new EuropeViewModel(list);
+            MainViewModel.GetInstace().OceaniaView = new OceaniaViewModel(list);
             navigation.NavigatePage(Resources.Resources.Country);
             IsEnabled = true;
             IsRunning = false;
@@ -149,11 +154,13 @@ namespace CountriesApp.ViewModels
 
         private void InitializeCountriesModels()
         {
-            MainViewModel.GetInstace().AfricaView = new AfricaViewModel();
-            MainViewModel.GetInstace().AsiaView = new AsiaViewModel();
-            MainViewModel.GetInstace().EuropeView = new EuropeViewModel();
-            MainViewModel.GetInstace().AmericasView = new AmericasViewModel();
-            MainViewModel.GetInstace().OceaniaView = new OceaniaViewModel();
+            //MainViewModel.GetInstace().CountryView = new CountryViewModel(App.LoadCountry, App.apiService);
+            //MainViewModel.GetInstace().CountryView.GetCountries();
+            //MainViewModel.GetInstace().AfricaView = new AfricaViewModel();
+            //MainViewModel.GetInstace().AsiaView = new AsiaViewModel();
+            //MainViewModel.GetInstace().EuropeView = new EuropeViewModel();
+            //MainViewModel.GetInstace().AmericasView = new AmericasViewModel();
+            //MainViewModel.GetInstace().OceaniaView = new OceaniaViewModel();
         }
 
         private void SaveUserSettings()
@@ -234,6 +241,12 @@ namespace CountriesApp.ViewModels
                         return;
                     }
                     SaveUserSettings();
+                    var list = App.LoadCountry.LoadCountries();
+                    MainViewModel.GetInstace().AfricaView = new AfricaViewModel(list);
+                    MainViewModel.GetInstace().AmericasView = new AmericasViewModel(list);
+                    MainViewModel.GetInstace().AsiaView = new AsiaViewModel(list);
+                    MainViewModel.GetInstace().EuropeView = new EuropeViewModel(list);
+                    MainViewModel.GetInstace().OceaniaView = new OceaniaViewModel(list);
                     InitializeCountriesModels();
                     navigation.NavigatePage(Resources.Resources.Country);
                     break;

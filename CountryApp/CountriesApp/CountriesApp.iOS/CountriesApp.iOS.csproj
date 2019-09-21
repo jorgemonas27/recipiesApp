@@ -138,7 +138,9 @@
     <ImageAsset Include="Assets.xcassets\mapsLogo.imageset\Contents.json">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\Images.imageset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\Images.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
     <None Include="Info.plist" />
     <Compile Include="MySearchBarRenderer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -453,10 +455,14 @@
     </ImageAsset>
   </ItemGroup>
   <ItemGroup>
-    <ImageAsset Include="Assets.xcassets\africa.imageset\africa2.png" />
+    <ImageAsset Include="Assets.xcassets\africa.imageset\africa2.png">
+      <Visible>false</Visible>
+    </ImageAsset>
   </ItemGroup>
   <ItemGroup>
-    <ImageAsset Include="Assets.xcassets\Images.imageset\MUNDO MAPAS mundito con rayas.png" />
+    <ImageAsset Include="Assets.xcassets\Images.imageset\MUNDO MAPAS mundito con rayas.png">
+      <Visible>false</Visible>
+    </ImageAsset>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

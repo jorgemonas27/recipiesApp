@@ -1,7 +1,10 @@
-﻿using CountriesApp.Services;
+﻿using CountriesApp.Models;
+using CountriesApp.Services;
 using CountriesApp.ViewModels;
 using CountriesApp.Views;
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -12,14 +15,18 @@ namespace CountriesApp
     {
         public static NavigationPage Navigator { get; internal set; }
         public string AuthToken { get; set; }
-        private ConnectionChecker connection;
-        private MessageManager message;
+        public static ConnectionChecker connection;
+        public static MessageManager message;
+        public static ILoadCountry<Country> LoadCountry;
+        public static IService apiService;
 
         public App()
         {
             InitializeComponent();
             connection = new ConnectionChecker();
             message = new MessageManager();
+            apiService = new ApiService();
+            LoadCountry = new LoadCountry(new ApiService());
         }
 
         protected override void OnStart()
@@ -37,12 +44,13 @@ namespace CountriesApp
             }
             else
             {
-                MainViewModel.GetInstace().AfricaView = new AfricaViewModel();
-                MainViewModel.GetInstace().AsiaView = new AsiaViewModel();
-                MainViewModel.GetInstace().EuropeView = new EuropeViewModel();
-                MainViewModel.GetInstace().AmericasView = new AmericasViewModel();
-                MainViewModel.GetInstace().OceaniaView = new OceaniaViewModel();
-
+                var list = LoadCountry.LoadCountries();
+                MainViewModel.GetInstace().AfricaView = new AfricaViewModel(list);
+                MainViewModel.GetInstace().AmericasView = new AmericasViewModel(list);
+                MainViewModel.GetInstace().AsiaView = new AsiaViewModel(list);
+                MainViewModel.GetInstace().EuropeView = new EuropeViewModel(list);
+                MainViewModel.GetInstace().OceaniaView = new OceaniaViewModel(list);
+                
                 MainPage = new NavigationPage(new CountriesPage())
                 {
                     BarBackgroundColor = Color.FromHex("#084c9e"),
