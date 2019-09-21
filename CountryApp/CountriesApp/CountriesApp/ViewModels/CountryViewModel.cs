@@ -7,7 +7,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Input;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace CountriesApp.ViewModels
 {
@@ -15,9 +17,10 @@ namespace CountriesApp.ViewModels
     {
 
         #region Commands
+
         public ICommand RefreshCommand
         {
-            get => new RelayCommand(GetCountries);
+            get => new RelayCommand(GetCountriesByRegion);
         }
 
         public ICommand SearchCommand
@@ -33,9 +36,20 @@ namespace CountriesApp.ViewModels
         #endregion
 
         #region Props
+        private ObservableCollection<Country> countries;
+
+        public virtual ObservableCollection<Country> Countries
+        {
+            get { return countries; }
+            set
+            {
+                countries = value;
+                SetValue(ref countries, value);
+            }
+        }
         private ObservableCollection<Country> region;
 
-        public ObservableCollection<Country> Region
+        public virtual ObservableCollection<Country> Region
         {
             get { return region; }
             set
@@ -44,8 +58,7 @@ namespace CountriesApp.ViewModels
                 SetValue(ref region, value);
             }
         }
-
-       
+        
         private bool isrunning;
 
         public bool IsRunning
@@ -84,52 +97,36 @@ namespace CountriesApp.ViewModels
             }
         }
 
-        public virtual string Url { get; }
+        public virtual List<Country> ListCountries { get; }
 
-        private LoadCountry loadCountry;
-        private SearchCountry searchCountry;
-        private List<Country> regionList;
+        protected SearchCountry searchCountry;
+        public List<Country> RegionList { get; set; }
 
-        public Country CountrySelected { get; set; }
         private NavigationService navigator;
         private MessageManager message;
-
+        private ILoadCountry<Country> load;
+        
         #endregion
 
         #region ctor
         public CountryViewModel()
         {
-            loadCountry = new LoadCountry();
             searchCountry = new SearchCountry();
             navigator = new NavigationService();
             message = new MessageManager();
-            CountrySelected = null;
         }
         #endregion
 
         #region Methods
         
-        public async void GetCountries()
+        public void GetCountriesByRegion()
         {
-            try
-            {
-                IsRefreshing = false;
-                this.regionList = await loadCountry.LoadCountries(Url);
-                var sortedList = regionList.OrderBy(country => country.Name).ToList();
-                Region = new ObservableCollection<Country>(sortedList);
-
-            }
-            catch (Exception ex)
-            {
-                IsRefreshing = false;
-                message.ShowMessage(Resources.Resources.Error, ex.Message);
-            }
-            
+            Region = new ObservableCollection<Country>(ListCountries);
         }
-        
-        private void SearchCountry()
+
+        public virtual void SearchCountry()
         {
-            Region = searchCountry.SearchCountries(KeySearch, regionList, Region);
+            Region = searchCountry.SearchCountries(KeySearch, ListCountries, Region);
         }
 
         private void SelectedCountry(Country selectedCountry)

@@ -61,7 +61,7 @@ namespace CountriesApp.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to /v2/region/africa.
+        ///   Looks up a localized string similar to Africa.
         /// </summary>
         internal static string AfricaURL {
             get {
@@ -70,7 +70,7 @@ namespace CountriesApp.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to /v2/region/americas.
+        ///   Looks up a localized string similar to Americas.
         /// </summary>
         internal static string AmericasURL {
             get {
@@ -79,7 +79,16 @@ namespace CountriesApp.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to /v2/region/asia.
+        ///   Looks up a localized string similar to /v2/all.
+        /// </summary>
+        internal static string Api {
+            get {
+                return ResourceManager.GetString("Api", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Asia.
         /// </summary>
         internal static string AsiaURL {
             get {
@@ -160,7 +169,7 @@ namespace CountriesApp.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to /v2/region/europe.
+        ///   Looks up a localized string similar to Europe.
         /// </summary>
         internal static string EuropeURL {
             get {
@@ -223,7 +232,7 @@ namespace CountriesApp.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to /v2/region/oceania.
+        ///   Looks up a localized string similar to Oceania.
         /// </summary>
         internal static string OceaniaURL {
             get {

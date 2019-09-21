@@ -11,11 +11,14 @@ namespace CountriesApp.ViewModels
 {
     public class EuropeViewModel: CountryViewModel
     {
-        public override string Url => Resources.Resources.EuropeURL;
-        public EuropeViewModel()
+        public override List<Country> ListCountries { get; }
+
+        public EuropeViewModel(List<Country> countriesList)
         {
             IsRefreshing = true;
-            GetCountries();
+            ListCountries = countriesList.Where(country => country.Region == Resources.Resources.EuropeURL).ToList();
+            GetCountriesByRegion();
+            IsRefreshing = false;
         }
     }
 }

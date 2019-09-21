@@ -4,21 +4,19 @@
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
+    using Xamarin.Forms;
 
     public class LoadCountry : ILoadCountry<Country>
     {
         #region Props
-        public List<Country> cacheList { get; set; }
-        private IService service;
-        private MessageManager message;
 
+        private IService service;
+        
         #endregion
 
         #region Ctor
         public LoadCountry()
         {
-            service = new ApiService();
-            message = new MessageManager();
         }
 
         public LoadCountry(IService service)
@@ -26,21 +24,26 @@
             this.service = service;
         }
         #endregion
-
+        
         #region Methods
-        public async Task<List<Country>> LoadCountries(string url)
+        public List<Country> LoadCountries()
         {
             try
             {
-                var response = await service.GetData(Resources.Resources.baseRequest, Resources.Resources.prefix, url);
-                if (!response.IsSuccess)
+                var connected = App.connection.CheckConnection();
+                if (!connected.Result.IsValid)
                 {
-                    message.ShowMessage(Resources.Resources.Error, response.Message, Resources.Resources.OkMessage);
+                    Device.BeginInvokeOnMainThread(() => { App.message.ShowMessage(Resources.Resources.Error, Resources.Resources.ConnectivityError); });
                     return new List<Country>();
                 }
-                  
-                cacheList = response.Result;
-                return cacheList;
+                var response = Task.Run(()=>this.service.GetData(Resources.Resources.baseRequest, Resources.Resources.prefix, Resources.Resources.Api));
+                if (!response.Result.IsSuccess)
+                {
+                    App.message.ShowMessage(Resources.Resources.Error,Resources.Resources.ConnectivityError, Resources.Resources.OkMessage);
+                    return new List<Country>();
+                }
+
+                return response.Result.Result;
             }
             catch (Exception ex)
             {

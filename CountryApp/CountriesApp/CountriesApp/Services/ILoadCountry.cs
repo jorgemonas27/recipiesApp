@@ -9,6 +9,6 @@ namespace CountriesApp.Services
 {
     public interface ILoadCountry<T> where T: class
     {
-        Task<List<T>> LoadCountries(string url);
+        List<Country> LoadCountries();
     }
 }

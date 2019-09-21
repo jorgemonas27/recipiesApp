@@ -20,15 +20,15 @@ namespace CountriesApp.Services
                 };
             }
 
-            var isReacheable = await CrossConnectivity.Current.IsRemoteReachable(Resources.Resources.Google);
-            if (!isReacheable)
-            {
-                return new ResponseValidator()
-                {
-                    IsValid = false,
-                    Message = Resources.Resources.NoGoodSignalError
-                };
-            }
+            //var isReacheable = await CrossConnectivity.Current.IsRemoteReachable(Resources.Resources.Google);
+            //if (!isReacheable)
+            //{
+            //    return new ResponseValidator()
+            //    {
+            //        IsValid = false,
+            //        Message = Resources.Resources.NoGoodSignalError
+            //    };
+            //}
             return new ResponseValidator()
             {
                 IsValid = true

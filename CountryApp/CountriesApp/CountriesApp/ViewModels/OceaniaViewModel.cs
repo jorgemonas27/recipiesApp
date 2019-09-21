@@ -11,11 +11,14 @@ namespace CountriesApp.ViewModels
 {
     public class OceaniaViewModel: CountryViewModel
     {
-        public override string Url => Resources.Resources.OceaniaURL;
-        public OceaniaViewModel()
+        public override List<Country> ListCountries { get; }
+
+        public OceaniaViewModel(List<Country> countriesList)
         {
             IsRefreshing = true;
-            GetCountries();
+            ListCountries = countriesList.Where(country => country.Region == Resources.Resources.OceaniaURL).ToList();
+            GetCountriesByRegion();
+            IsRefreshing = false;
         }
     }
 }
