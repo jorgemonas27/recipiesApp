@@ -1,4 +1,5 @@
-﻿using CountriesApp.Models;
+﻿using CountriesApp.Database;
+using CountriesApp.Models;
 using CountriesApp.Services;
 using CountriesApp.ViewModels;
 using CountriesApp.Views;
@@ -19,6 +20,9 @@ namespace CountriesApp
         public static MessageManager message;
         public static ILoadCountry<Country> LoadCountry;
         public static IService apiService;
+        public static CountryDataBase CountryDataBase { get; private set; }
+        string dbPath => FileAccessHelper.GetLocalFilePath("country.db3");
+
 
         public App()
         {
@@ -26,7 +30,8 @@ namespace CountriesApp
             connection = new ConnectionChecker();
             message = new MessageManager();
             apiService = new ApiService();
-            LoadCountry = new LoadCountry(new ApiService());
+            CountryDataBase = new CountryDataBase(dbPath);
+            LoadCountry = new LoadCountry(new ApiService(), CountryDataBase);
         }
 
         protected override void OnStart()
