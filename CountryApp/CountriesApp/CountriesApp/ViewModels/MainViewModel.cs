@@ -1,6 +1,7 @@
 ﻿namespace CountriesApp.ViewModels
 {
     using System.Windows.Input;
+    using CountriesApp.Services;
     using CountriesApp.Views;
     using GalaSoft.MvvmLight.Command;
 

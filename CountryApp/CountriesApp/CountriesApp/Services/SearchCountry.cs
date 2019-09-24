@@ -22,7 +22,7 @@ namespace CountriesApp.Services
             search = toSearch;
         }
 
-        public ObservableCollection<Country> SearchCountries(string keySearch, List<Country> cacheList, ObservableCollection<Country> regionCollection)
+        public ObservableCollection<Country> SearchCountries(string keySearch, IList<Country> cacheList, ObservableCollection<Country> regionCollection)
         {
             if (string.IsNullOrEmpty(keySearch))
             {

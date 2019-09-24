@@ -200,4 +200,7 @@
   <data name="Api" xml:space="preserve">
     <value>/v2/all</value>
   </data>
+  <data name="Back" xml:space="preserve">
+    <value>Back</value>
+  </data>
 </root>

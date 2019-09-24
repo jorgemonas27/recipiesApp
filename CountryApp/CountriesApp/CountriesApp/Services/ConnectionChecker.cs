@@ -9,7 +9,7 @@ namespace CountriesApp.Services
 {
     public class ConnectionChecker
     {
-        public async Task<ResponseValidator> CheckConnection()
+        public ResponseValidator CheckConnection()
         {
             if(!CrossConnectivity.Current.IsConnected)
             {
@@ -19,16 +19,6 @@ namespace CountriesApp.Services
                     Message = Resources.Resources.ConnectivityError
                 };
             }
-
-            //var isReacheable = await CrossConnectivity.Current.IsRemoteReachable(Resources.Resources.Google);
-            //if (!isReacheable)
-            //{
-            //    return new ResponseValidator()
-            //    {
-            //        IsValid = false,
-            //        Message = Resources.Resources.NoGoodSignalError
-            //    };
-            //}
             return new ResponseValidator()
             {
                 IsValid = true

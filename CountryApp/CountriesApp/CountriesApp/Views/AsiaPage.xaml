@@ -9,27 +9,34 @@
              BindingContext="{Binding Main, Source={StaticResource Locator}}">
 
     <ContentPage.Content>
-        <StackLayout BindingContext="{Binding AsiaView}"
-                     VerticalOptions="CenterAndExpand"
+        <StackLayout BindingContext="{Binding AsiaView}" 
                      HorizontalOptions="Center" 
                      Margin="10" 
                      Spacing="10">
+            <Label IsVisible="{Binding OfflineMode}" 
+                   Text="Offline mode"
+                   HorizontalOptions="Center"></Label>
             <custom:MySearchBar 
                 SearchCommand="{Binding SearchCommand}"
                 Text="{Binding KeySearch, Mode=TwoWay}" 
                 Margin="0,20,0,0" 
                 FontSize="15"
                 Placeholder="Search for a country!" 
-                HorizontalOptions="Center"
-                VerticalOptions="FillAndExpand"/>
-            <StackLayout HorizontalOptions="Center" Padding="10" Spacing="10">
+                HorizontalOptions="Center"/>
+            <StackLayout Padding="10" Spacing="10">
+                <Label 
+                   Margin="0,50,0,0"
+                   IsVisible="{Binding NotFound}"
+                   Text="Sorry, we couldnt found any countries with that keyword!"
+                   HorizontalOptions="Center"/>
                 <ListView HasUnevenRows="True" 
-                          ItemTemplate="{StaticResource templateList}" 
                           ItemsSource="{Binding Region}"
                           IsPullToRefreshEnabled="True"
                           IsRefreshing="{Binding IsRefreshing}"
+                          ItemTemplate="{StaticResource templateList}"
                           RefreshCommand="{Binding RefreshCommand}"
                           VerticalOptions="FillAndExpand"
+                          IsVisible="{Binding IsShowing}"
                           HeightRequest="550">
                     <ListView.Behaviors>
                         <local:EventToCommandBehavior EventName="ItemSelected" Command="{Binding SelectedItemCommand}" Converter="{StaticResource SelectedItemConverter}"/>

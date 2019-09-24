@@ -1,7 +1,9 @@
 ﻿namespace CountriesApp.Models
 {
     using Newtonsoft.Json;
+    using System;
 
+    [Serializable]
     public class Language
     {
         [JsonProperty("iso639_1")]

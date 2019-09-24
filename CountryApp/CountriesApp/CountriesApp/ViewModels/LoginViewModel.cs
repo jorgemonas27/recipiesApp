@@ -1,7 +1,9 @@
-﻿using CountriesApp.Services;
+﻿using CountriesApp.Models;
+using CountriesApp.Services;
 using CountriesApp.Validators;
 using CountriesApp.Views;
 using GalaSoft.MvvmLight.Command;
+using System.Collections.Generic;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -30,10 +32,6 @@ namespace CountriesApp.ViewModels
 
 
         #region Props
-
-        private Login login;
-
-        private MessageManager message;
 
         private string email;
 
@@ -98,36 +96,43 @@ namespace CountriesApp.ViewModels
             }
         }
 
-        private ValidateLoginFields validator;
+        private Login login;
         private NavigationService navigation;
-        private ConnectionChecker connection;
-
+        
         #endregion
 
         #region Ctor
         public LoginViewModel()
         {
-            login = new Login();
+            this.login = new Login();
             IsEnabled = true;
             IsRunning = false;
-            message = new MessageManager();
-            validator = new ValidateLoginFields();
             navigation = new NavigationService();
-            connection = new ConnectionChecker();
         }
         #endregion
 
 
         #region Methods
+
+        private void SetupEnvironment()
+        {
+            var state = App.LoadCountry.LoadCountries<State>();
+            MainViewModel.GetInstace().AfricaView = new AfricaViewModel(state);
+            MainViewModel.GetInstace().AmericasView = new AmericasViewModel(state);
+            MainViewModel.GetInstace().AsiaView = new AsiaViewModel(state);
+            MainViewModel.GetInstace().EuropeView = new EuropeViewModel(state);
+            MainViewModel.GetInstace().OceaniaView = new OceaniaViewModel(state);
+        }
+
         private async void Login()
         {
             IsEnabled = false;
             IsRunning = true;
-            if (!validator.ValidateCredentials(Email, Password).IsValid)
+            if (!App.validate.ValidateCredentials(Email, Password).IsValid)
             {
                 IsEnabled = true;
                 IsRunning = false;
-                message.ShowMessage(Resources.Resources.Error, validator.ValidateCredentials(Email, Password).Message);
+                App.message.ShowMessage(Resources.Resources.Error, App.validate.ValidateCredentials(Email, Password).Message);
                 return;
             }
 
@@ -136,31 +141,15 @@ namespace CountriesApp.ViewModels
             {
                 IsEnabled = true;
                 IsRunning = false;
-                message.ShowMessage(Resources.Resources.Error, Resources.Resources.AuthenticationFailed);
+                App.message.ShowMessage(Resources.Resources.Error, Resources.Resources.AuthenticationFailed);
                 Password = string.Empty;
                 return;
             }
             SaveUserSettings();
-            var list = App.LoadCountry.LoadCountries();
-            MainViewModel.GetInstace().AfricaView = new AfricaViewModel(list);
-            MainViewModel.GetInstace().AmericasView = new AmericasViewModel(list);
-            MainViewModel.GetInstace().AsiaView = new AsiaViewModel(list);
-            MainViewModel.GetInstace().EuropeView = new EuropeViewModel(list);
-            MainViewModel.GetInstace().OceaniaView = new OceaniaViewModel(list);
+            SetupEnvironment();
             navigation.NavigatePage(Resources.Resources.Country);
             IsEnabled = true;
             IsRunning = false;
-        }
-
-        private void InitializeCountriesModels()
-        {
-            //MainViewModel.GetInstace().CountryView = new CountryViewModel(App.LoadCountry, App.apiService);
-            //MainViewModel.GetInstace().CountryView.GetCountries();
-            //MainViewModel.GetInstace().AfricaView = new AfricaViewModel();
-            //MainViewModel.GetInstace().AsiaView = new AsiaViewModel();
-            //MainViewModel.GetInstace().EuropeView = new EuropeViewModel();
-            //MainViewModel.GetInstace().AmericasView = new AmericasViewModel();
-            //MainViewModel.GetInstace().OceaniaView = new OceaniaViewModel();
         }
 
         private void SaveUserSettings()
@@ -169,14 +158,8 @@ namespace CountriesApp.ViewModels
             UserSettings.Password = this.Password;
         }
 
-        private async void LogoutFirebase()
+        private void LogoutFirebase()
         {
-            var connected = await connection.CheckConnection();
-            if (!connected.IsValid)
-            {
-                message.ShowMessage(Resources.Resources.Error, connected.Message);
-                return;
-            }
             if (login.LogoutUser())
             {
                 this.IsRunning = true;
@@ -207,7 +190,7 @@ namespace CountriesApp.ViewModels
 
         private async void LoginFirebase()
         {
-            var connected = await connection.CheckConnection();
+            var connected = App.connection.CheckConnection();
            
             switch (Device.RuntimePlatform)
             {
@@ -221,14 +204,14 @@ namespace CountriesApp.ViewModels
                     {
                         IsEnabled = true;
                         IsRunning = false;
-                        message.ShowMessage(Resources.Resources.Error, connected.Message);
+                        App.message.ShowMessage(Resources.Resources.Error, connected.Message);
                         return;
                     }
-                    if (!validator.ValidateCredentials(Email, Password).IsValid)
+                    if (!App.validate.ValidateCredentials(Email, Password).IsValid)
                     {
                         IsEnabled = true;
                         IsRunning = false;
-                        message.ShowMessage(Resources.Resources.Error, validator.ValidateCredentials(Email, Password).Message);
+                        App.message.ShowMessage(Resources.Resources.Error, App.validate.ValidateCredentials(Email, Password).Message);
                         return;
                     }
                     var response = await login.SignInFirebase(Email, Password);
@@ -236,18 +219,12 @@ namespace CountriesApp.ViewModels
                     {
                         IsEnabled = true;
                         IsRunning = false;
-                        message.ShowMessage(Resources.Resources.Error, Resources.Resources.AuthenticationFailed, Resources.Resources.OkMessage);
+                        App.message.ShowMessage(Resources.Resources.Error, Resources.Resources.AuthenticationFailed, Resources.Resources.OkMessage);
                         Password = string.Empty;
                         return;
                     }
                     SaveUserSettings();
-                    var list = App.LoadCountry.LoadCountries();
-                    MainViewModel.GetInstace().AfricaView = new AfricaViewModel(list);
-                    MainViewModel.GetInstace().AmericasView = new AmericasViewModel(list);
-                    MainViewModel.GetInstace().AsiaView = new AsiaViewModel(list);
-                    MainViewModel.GetInstace().EuropeView = new EuropeViewModel(list);
-                    MainViewModel.GetInstace().OceaniaView = new OceaniaViewModel(list);
-                    InitializeCountriesModels();
+                    SetupEnvironment();
                     navigation.NavigatePage(Resources.Resources.Country);
                     break;
             }

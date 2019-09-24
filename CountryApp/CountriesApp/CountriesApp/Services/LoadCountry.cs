@@ -1,20 +1,17 @@
 ﻿namespace CountriesApp.Services
 {
-    using CountriesApp.Database;
     using CountriesApp.Models;
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics;
-    using System.IO;
     using System.Threading.Tasks;
     using Xamarin.Forms;
 
-    public class LoadCountry : ILoadCountry<Country>
+    public class LoadCountry : ILoadCountry
     {
         #region Props
 
         private IService service;
-        private CountryDataBase database;
+        private ISerializer serializer;
 
         #endregion
 
@@ -23,10 +20,10 @@
         {
         }
 
-        public LoadCountry(IService service, CountryDataBase database)
+        public LoadCountry(IService service, ISerializer serialize)
         {
             this.service = service;
-            this.database = database;
+            this.serializer = serialize;
         }
 
         public LoadCountry(IService service)
@@ -36,56 +33,44 @@
         #endregion
         
         #region Methods
-        public List<Country> LoadCountries()
+        public T LoadCountries<T>() where T : State
         {
             try
             {
+                State state;
                 var connected = App.connection.CheckConnection();
-                if (!connected.Result.IsValid)
+                if (!connected.IsValid)
                 {
                     Device.BeginInvokeOnMainThread(() => { App.message.ShowMessage(Resources.Resources.Error, Resources.Resources.ConnectivityError); });
-                    return new List<Country>();
+                    var countries = serializer.DeserializeData<List<Country>>();
+                    state = new State()
+                    {
+                        Offline = true,
+                        Countries = countries
+                    };
+                    return (T)state;
                 }
-                var response = Task.Run(()=>this.service.GetData(Resources.Resources.baseRequest, Resources.Resources.prefix, Resources.Resources.Api));
+                var response = Task.Run(() => this.service.GetData(Resources.Resources.baseRequest, Resources.Resources.prefix, Resources.Resources.Api));
                 if (!response.Result.IsSuccess)
                 {
-                    App.message.ShowMessage(Resources.Resources.Error,Resources.Resources.ConnectivityError, Resources.Resources.OkMessage);
-                    return new List<Country>();
+                    App.message.ShowMessage(Resources.Resources.Error, Resources.Resources.ConnectivityError, Resources.Resources.OkMessage);
+                    return (T)new State();
                 }
                 var totalCountries = response.Result.Result;
-
-                totalCountries.ForEach(country =>
+                serializer.SerializeData(totalCountries);
+                state = new State()
                 {
-                    database.Insert(country);
-                });
-                //string dir = @"c:\temp";
-                //string serializationFile = Path.Combine(dir, @"\countries.bin");
+                    Offline = false,
+                    Countries = totalCountries
+                };
 
-                ////serialize
-                //using (Stream stream = File.Open(serializationFile, FileMode.Create))
-                //{
-                //    var bformatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
-
-                //    bformatter.Serialize(stream, totalCountries);
-                //}
-
-                ////deserialize
-                //using (Stream stream = File.Open(serializationFile, FileMode.Open))
-                //{
-                //    var bformatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
-
-                //    List<Country> countries = (List<Country>)bformatter.Deserialize(stream);
-                //}
-
-                return totalCountries;
-
+                return (T)state;
             }
             catch (Exception ex)
             {
                 throw new ArgumentException(ex.Message);
             }
         }
-
         #endregion
     }
 }

@@ -1,7 +1,9 @@
 ﻿namespace CountriesApp.Models
 {
     using Newtonsoft.Json;
+    using System;
 
+    [Serializable]
     public class RegionalBloc
     {
         [JsonProperty("acronym")]

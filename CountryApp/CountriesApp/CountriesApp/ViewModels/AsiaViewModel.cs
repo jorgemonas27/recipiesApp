@@ -8,12 +8,13 @@ namespace CountriesApp.ViewModels
 {
     public class AsiaViewModel: CountryViewModel
     {
-        public override List<Country> ListCountries { get; }
+        protected override IList<Country> ListCountries { get; }
 
-        public AsiaViewModel(List<Country> countriesList)
+        public AsiaViewModel(State countries)
         {
+            OfflineMode = countries.Offline;
             IsRefreshing = true;
-            ListCountries = countriesList.Where(country => country.Region == Resources.Resources.AsiaURL).ToList();
+            ListCountries = countries.Countries.Where(country => country.Region == Resources.Resources.AsiaURL).ToList();
             GetCountriesByRegion();
             IsRefreshing = false;
         }

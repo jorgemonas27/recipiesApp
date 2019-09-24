@@ -1,11 +1,9 @@
-﻿using CountriesApp.Database;
-using CountriesApp.Models;
+﻿using CountriesApp.Models;
 using CountriesApp.Services;
+using CountriesApp.Validators;
 using CountriesApp.ViewModels;
 using CountriesApp.Views;
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -15,23 +13,21 @@ namespace CountriesApp
     public partial class App : Application
     {
         public static NavigationPage Navigator { get; internal set; }
-        public string AuthToken { get; set; }
         public static ConnectionChecker connection;
         public static MessageManager message;
-        public static ILoadCountry<Country> LoadCountry;
+        public static ILoadCountry LoadCountry;
         public static IService apiService;
-        public static CountryDataBase CountryDataBase { get; private set; }
-        string dbPath => FileAccessHelper.GetLocalFilePath("country.db3");
-
+        public static ValidateLoginFields validate;
+        public static string serializePath => FileAccessHelper.GetLocalFilePath("countries.txt");
 
         public App()
         {
             InitializeComponent();
+            validate = new ValidateLoginFields();
             connection = new ConnectionChecker();
             message = new MessageManager();
             apiService = new ApiService();
-            CountryDataBase = new CountryDataBase(dbPath);
-            LoadCountry = new LoadCountry(new ApiService(), CountryDataBase);
+            LoadCountry = new LoadCountry(new ApiService(), new SerializerHelper());
         }
 
         protected override void OnStart()
@@ -49,19 +45,23 @@ namespace CountriesApp
             }
             else
             {
-                var list = LoadCountry.LoadCountries();
-                MainViewModel.GetInstace().AfricaView = new AfricaViewModel(list);
-                MainViewModel.GetInstace().AmericasView = new AmericasViewModel(list);
-                MainViewModel.GetInstace().AsiaView = new AsiaViewModel(list);
-                MainViewModel.GetInstace().EuropeView = new EuropeViewModel(list);
-                MainViewModel.GetInstace().OceaniaView = new OceaniaViewModel(list);
-                
+                SetupEnvironment();
                 MainPage = new NavigationPage(new CountriesPage())
                 {
                     BarBackgroundColor = Color.FromHex("#084c9e"),
                     BarTextColor = Color.White
                 };
             }
+        }
+
+        private void SetupEnvironment()
+        {
+            var state = LoadCountry.LoadCountries<State>();
+            MainViewModel.GetInstace().AfricaView = new AfricaViewModel(state);
+            MainViewModel.GetInstace().AmericasView = new AmericasViewModel(state);
+            MainViewModel.GetInstace().AsiaView = new AsiaViewModel(state);
+            MainViewModel.GetInstace().EuropeView = new EuropeViewModel(state);
+            MainViewModel.GetInstace().OceaniaView = new OceaniaViewModel(state);
         }
 
         protected override void OnSleep()
