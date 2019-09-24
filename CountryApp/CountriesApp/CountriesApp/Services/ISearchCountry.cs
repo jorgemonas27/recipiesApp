@@ -9,6 +9,6 @@ namespace CountriesApp.Services
 {
     public interface ISearchCountry
     {
-        ObservableCollection<Country> SearchCountries(string keySearch, List<Country> cacheList, ObservableCollection<Country> regionCollection);
+        ObservableCollection<Country> SearchCountries(string keySearch, IList<Country> cacheList, ObservableCollection<Country> regionCollection);
     }
 }

@@ -8,7 +8,6 @@
     using SQLite;
     using SQLiteNetExtensions.Attributes;
 
-    [SQLite.Table("country")]
     [Serializable]
     public class Country
     {

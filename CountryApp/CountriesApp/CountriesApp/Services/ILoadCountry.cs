@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace CountriesApp.Services
 {
-    public interface ILoadCountry<T> where T: class
+    public interface ILoadCountry
     {
-        List<Country> LoadCountries();
+        T LoadCountries<T>() where T : State;
     }
 }

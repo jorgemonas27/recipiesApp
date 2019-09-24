@@ -31,7 +31,7 @@
                 NavigationPage.SetHasNavigationBar(page, false);
             }
             NavigationPage.SetHasBackButton(page, false);
-            NavigationPage.SetBackButtonTitle(page, "Back");
+            NavigationPage.SetBackButtonTitle(page, Resources.Resources.Back);
             await App.Current.MainPage.Navigation.PushAsync(page, true);
         }
     }
